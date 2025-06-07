@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculus is FUN</title>
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900 font-sans leading-relaxed tracking-wide">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b shadow-sm">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold tracking-tight">Calculus is FUN</h1>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="max-w-7xl mx-auto px-6 pb-3">
+      <ul class="flex flex-wrap justify-center space-x-6 text-sm font-medium text-gray-700">
+        <li><a href="#limit" class="hover:text-black transition">Limit</a></li>
+        <li><a href="#turunan" class="hover:text-black transition">Turunan</a></li>
+        <li><a href="#chain" class="hover:text-black transition">Chain Rule</a></li>
+        <li><a href="#riemann" class="hover:text-black transition">Riemann Sum</a></li>
+        <li><a href="#integral-tentu" class="hover:text-black transition">Integral Tentu</a></li>
+        <li><a href="#integral-tak-tentu" class="hover:text-black transition">Integral Tak Tentu</a></li>
+        <li><a href="#turunan-numerik" class="hover:text-black transition">Turunan Numerik</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-5xl mx-auto px-6 py-16 space-y-24">
+    <!-- Template Section -->
+    <section id="limit" class="fade-in">
+      <h2 class="text-3xl font-semibold mb-4">Limit</h2>
+      <p class="text-gray-700">Penjelasan limit akan ditulis di sini...</p>
+    </section>
+
+    <section id="turunan" class="fade-in">
+      <h2 class="text-3xl font-semibold mb-4">Turunan</h2>
+      <p class="text-gray-700">Penjelasan tentang turunan...</p>
+    </section>
+
+    <section id="chain" class="fade-in">
+      <h2 class="text-3xl font-semibold mb-4">Chain Rule</h2>
+      <p class="text-gray-700">Penjelasan tentang chain rule...</p>
+    </section>
+
+    <section id="riemann" class="fade-in">
+      <h2 class="text-3xl font-semibold mb-4">Riemann Sum</h2>
+      <p class="text-gray-700">Penjelasan tentang Riemann Sum...</p>
+    </section>
+
+    <section id="integral-tentu" class="fade-in">
+      <h2 class="text-3xl font-semibold mb-4">Integral Tentu</h2>
+      <p class="text-gray-700">Penjelasan tentang integral tentu...</p>
+    </section>
+
+    <section id="integral-tak-tentu" class="fade-in">
+      <h2 class="text-3xl font-semibold mb-4">Integral Tak Tentu</h2>
+      <p class="text-gray-700">Penjelasan tentang integral tak tentu...</p>
+    </section>
+
+    <section id="turunan-numerik" class="fade-in">
+      <h2 class="text-3xl font-semibold mb-4">Turunan Numerik</h2>
+      <p class="text-gray-700">Penjelasan tentang turunan numerik...</p>
+    </section>
+  </main>
+
+  <!-- Animasi Scroll -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("opacity-100", "translate-y-0");
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    document.querySelectorAll(".fade-in").forEach(section => {
+      section.classList.add("opacity-0", "translate-y-8", "transition-all", "duration-700");
+      observer.observe(section);
+    });
+  </script>
+
+</body>
+</html>
