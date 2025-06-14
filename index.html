@@ -10,8 +10,7 @@
             scroll-behavior: smooth;
         }
         body {
-            /* Fallback padding-top, akan diupdate oleh JS */
-            padding-top: var(--header-height, 100px); /* Default 100px jika JS belum jalan */
+            padding-top: var(--header-height, 100px); 
         }
         .formula {
             font-family: serif;
@@ -20,7 +19,7 @@
             padding: 2px 5px;
             border-radius: 3px;
             white-space: nowrap;
-            display: inline-block; /* Pastikan padding bekerja dengan baik */
+            display: inline-block;
         }
         .sub-heading {
             font-weight: 600;
@@ -76,12 +75,11 @@
             font-weight: 400;
             color: #00796b;
         }
-        /* Custom styles for navbar responsiveness */
         @media (max-width: 768px) {
             .navbar-menu {
                 flex-direction: column;
                 align-items: center;
-                gap: 8px; /* Spasi antar item menu di mode mobile */
+                gap: 8px;
             }
         }
     </style>
@@ -116,14 +114,15 @@
 
     <main class="max-w-5xl mx-auto px-6 py-16 space-y-24">
         <section id="limit" class="fade-in">
-            <h2 class="text-3xl font-semibold mb-4">Limit: Fondasi Ajaib Kalkulus</h2>
-            <p class="text-gray-700 mb-4">Pernahkah kamu bertanya bagaimana kita bisa memahami apa yang terjadi pada suatu fungsi saat kita mendekati suatu titik, tetapi tidak pernah benar-benar mencapainya? Itulah keajaiban limit! Konsep ini adalah tulang punggung kalkulus, memungkinkan kita untuk 'mengintip' perilaku fungsi pada titik-titik krusial, bahkan saat fungsi itu sendiri mungkin tidak terdefinisi di sana. Limit membantu kita menemukan kemiringan garis singgung dan kecepatan sesaat, membuka pintu ke dunia diferensial dan integral.</p>
+            <h2 class="text-3xl font-semibold mb-4">Limit</h2>
+            <p class="text-gray-700 mb-4">Pernahkah kamu bertanya bagaimana kita bisa memahami apa yang terjadi pada suatu fungsi saat kita mendekati suatu titik, tetapi tidak pernah benar-benar mencapainya?</p>
+            <p>Konsep ini adalah tulang punggung kalkulus, memungkinkan kita untuk memperkirakan perilaku fungsi pada titik-titik krusial, bahkan saat fungsi itu sendiri mungkin tidak terdefinisi. Limit membantu kita menemukan kemiringan garis singgung dan kecepatan sesaat, yang akan meluas ke diferensial dan integral.</p>
 
             <p class="sub-heading">Apa Itu Limit?</p>
             <p class="text-gray-700">Secara intuitif, limit suatu fungsi $f(x)$ saat $x$ mendekati nilai $a$ adalah nilai $L$ yang didekati oleh $f(x)$. Bayangkan kamu berjalan di jalur pegunungan menuju puncak. Limit adalah ketinggian puncak yang kamu dekati, meskipun kamu mungkin tidak bisa melangkah tepat di puncaknya.</p>
             <ul>
                 <li><b>Definisi Formal Limit:</b> Kita menulis $\lim_{x \to a} f(x) = L$ jika kita dapat membuat nilai $f(x)$ sedekat mungkin dengan $L$ dengan mengambil $x$ yang cukup dekat dengan $a$ (dari kedua sisi), tetapi tidak harus sama dengan $a$. Ini berarti perilaku fungsi di sekitar $a$-lah yang penting, bukan di $a$ itu sendiri.</li>
-                <li><b>Limit Satu Sisi:</b> Seperti berjalan di jalan satu arah!
+                <li><b>Limit Satu Sisi:</b> Seperti berjalan di jalan satu arah
                     <ul>
                         <li><b>Limit Kiri:</b> $\lim_{x \to a^-} f(x) = L$, berarti $f(x)$ mendekati $L$ saat $x$ mendekati $a$ dari nilai-nilai yang lebih kecil dari $a$.</li>
                         <li><b>Limit Kanan:</b> $\lim_{x \to a^+} f(x) = L$, berarti $f(x)$ mendekati $L$ saat $x$ mendekati $a$ dari nilai-nilai yang lebih besar dari $a$.</li>
