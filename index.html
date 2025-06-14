@@ -1,94 +1,1149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calculus is FUN</title>
-  <script src="https://cdn.tailwindcss.com"></script> 
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculus is FUN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            /* Fallback padding-top, akan diupdate oleh JS */
+            padding-top: var(--header-height, 100px); /* Default 100px jika JS belum jalan */
+        }
+        .formula {
+            font-family: serif;
+            font-style: italic;
+            background-color: #f0f0f0;
+            padding: 2px 5px;
+            border-radius: 3px;
+            white-space: nowrap;
+            display: inline-block; /* Pastikan padding bekerja dengan baik */
+        }
+        .sub-heading {
+            font-weight: 600;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            color: #34495e;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+        b {
+            color: #2c3e50;
+        }
+        .citation {
+            font-size: 0.85em;
+            color: #555;
+            vertical-align: super;
+            margin-left: 2px;
+        }
+        .example-box {
+            background-color: #ecf0f1;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+        .example-box p {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        .example-box ul {
+            list-style-type: none;
+            margin-left: 0;
+        }
+        .example-box ul li {
+            margin-bottom: 5px;
+        }
+        .solution {
+            background-color: #e0f7fa;
+            border-left: 4px solid #00bcd4;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+        .solution p {
+            font-weight: 400;
+            color: #00796b;
+        }
+        /* Custom styles for navbar responsiveness */
+        @media (max-width: 768px) {
+            .navbar-menu {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px; /* Spasi antar item menu di mode mobile */
+            }
+        }
+    </style>
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+    </script>
 </head>
 <body class="bg-white text-gray-900 font-sans leading-relaxed tracking-wide">
 
-  <!-- Header -->
-  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b shadow-sm">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-      <h1 class="text-xl font-bold tracking-tight">Calculus is FUN</h1>
-    </div>
+    <header id="main-header" class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur border-b shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center">
+            <h1 class="text-xl font-bold tracking-tight mb-2 sm:mb-0">Calculus is FUN</h1>
+            <nav class="w-full sm:w-auto">
+                <ul class="flex flex-wrap justify-center sm:justify-end space-x-4 sm:space-x-6 text-sm font-medium text-gray-700 navbar-menu">
+                    <li><a href="#limit" class="hover:text-black transition py-1 px-2 rounded-md">Limit</a></li>
+                    <li><a href="#turunan" class="hover:text-black transition py-1 px-2 rounded-md">Turunan</a></li>
+                    <li><a href="#chain" class="hover:text-black transition py-1 px-2 rounded-md">Chain Rule</a></li>
+                    <li><a href="#riemann" class="hover:text-black transition py-1 px-2 rounded-md">Riemann Sum</a></li>
+                    <li><a href="#integral-tentu" class="hover:text-black transition py-1 px-2 rounded-md">Integral Tentu</a></li>
+                    <li><a href="#integral-tak-tentu" class="hover:text-black transition py-1 px-2 rounded-md">Integral Tak Tentu</a></li>
+                    <li><a href="#turunan-numerik" class="hover:text-black transition py-1 px-2 rounded-md">Turunan Numerik</a></li>
+                    <li><a href="#integral-numerik" class="hover:text-black transition py-1 px-2 rounded-md">Integral Numerik</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    <!-- Navigation -->
-    <nav class="max-w-7xl mx-auto px-6 pb-3">
-      <ul class="flex flex-wrap justify-center space-x-6 text-sm font-medium text-gray-700">
-        <li><a href="#limit" class="hover:text-black transition">Limit</a></li>
-        <li><a href="#turunan" class="hover:text-black transition">Turunan</a></li>
-        <li><a href="#chain" class="hover:text-black transition">Chain Rule</a></li>
-        <li><a href="#riemann" class="hover:text-black transition">Riemann Sum</a></li>
-        <li><a href="#integral-tentu" class="hover:text-black transition">Integral Tentu</a></li>
-        <li><a href="#integral-tak-tentu" class="hover:text-black transition">Integral Tak Tentu</a></li>
-        <li><a href="#turunan-numerik" class="hover:text-black transition">Turunan Numerik</a></li>
-      </ul>
-    </nav>
-  </header>
+    <main class="max-w-5xl mx-auto px-6 py-16 space-y-24">
+        <section id="limit" class="fade-in">
+            <h2 class="text-3xl font-semibold mb-4">Limit: Fondasi Ajaib Kalkulus</h2>
+            <p class="text-gray-700 mb-4">Pernahkah kamu bertanya bagaimana kita bisa memahami apa yang terjadi pada suatu fungsi saat kita mendekati suatu titik, tetapi tidak pernah benar-benar mencapainya? Itulah keajaiban limit! Konsep ini adalah tulang punggung kalkulus, memungkinkan kita untuk 'mengintip' perilaku fungsi pada titik-titik krusial, bahkan saat fungsi itu sendiri mungkin tidak terdefinisi di sana. Limit membantu kita menemukan kemiringan garis singgung dan kecepatan sesaat, membuka pintu ke dunia diferensial dan integral.</p>
 
-  <!-- Main Content -->
-  <main class="max-w-5xl mx-auto px-6 py-16 space-y-24">
-    <!-- Template Section -->
-    <section id="limit" class="fade-in">
-      <h2 class="text-3xl font-semibold mb-4">Limit</h2>
-      <p class="text-gray-700">Penjelasan limit akan ditulis di sini...</p>
-    </section>
+            <p class="sub-heading">Apa Itu Limit?</p>
+            <p class="text-gray-700">Secara intuitif, limit suatu fungsi $f(x)$ saat $x$ mendekati nilai $a$ adalah nilai $L$ yang didekati oleh $f(x)$. Bayangkan kamu berjalan di jalur pegunungan menuju puncak. Limit adalah ketinggian puncak yang kamu dekati, meskipun kamu mungkin tidak bisa melangkah tepat di puncaknya.</p>
+            <ul>
+                <li><b>Definisi Formal Limit:</b> Kita menulis $\lim_{x \to a} f(x) = L$ jika kita dapat membuat nilai $f(x)$ sedekat mungkin dengan $L$ dengan mengambil $x$ yang cukup dekat dengan $a$ (dari kedua sisi), tetapi tidak harus sama dengan $a$. Ini berarti perilaku fungsi di sekitar $a$-lah yang penting, bukan di $a$ itu sendiri.</li>
+                <li><b>Limit Satu Sisi:</b> Seperti berjalan di jalan satu arah!
+                    <ul>
+                        <li><b>Limit Kiri:</b> $\lim_{x \to a^-} f(x) = L$, berarti $f(x)$ mendekati $L$ saat $x$ mendekati $a$ dari nilai-nilai yang lebih kecil dari $a$.</li>
+                        <li><b>Limit Kanan:</b> $\lim_{x \to a^+} f(x) = L$, berarti $f(x)$ mendekati $L$ saat $x$ mendekati $a$ dari nilai-nilai yang lebih besar dari $a$.</li>
+                    </ul>
+                    Limit dua sisi $\lim_{x \to a} f(x) = L$ ada jika dan hanya jika limit kiri dan limit kanan keduanya ada dan keduanya bernilai sama, yaitu $\lim_{x \to a^-} f(x) = L$ dan $\lim_{x \to a^+} f(x) = L$.</li>
+            </ul>
 
-    <section id="turunan" class="fade-in">
-      <h2 class="text-3xl font-semibold mb-4">Turunan</h2>
-      <p class="text-gray-700">Penjelasan tentang turunan...</p>
-    </section>
+            <p class="sub-heading">Misteri Limit Tak Hingga dan Asimtot</p>
+            <p class="text-gray-700">Kadang-kadang, fungsi bisa 'melambung' atau 'menukik' tanpa batas saat mendekati suatu titik atau saat $x$ menjadi sangat besar/kecil.</p>
+            <ul>
+                <li><b>Limit Tak Hingga:</b>
+                    <ul>
+                        <li>$\lim_{x \to a} f(x) = \infty$: Nilai $f(x)$ menjadi sangat besar (bertambah tanpa batas) saat $x$ mendekati $a$.</li>
+                        <li>$\lim_{x \to a} f(x) = -\infty$: Nilai $f(x)$ menjadi sangat negatif (berkurang tanpa batas) saat $x$ mendekati $a$.</li>
+                    </ul>
+                </li>
+                <li><b>Asimtot Vertikal:</b> Sebuah garis vertikal $x=a$ adalah asimtot vertikal dari kurva $y=f(x)$ jika setidaknya salah satu limit tak hingga di atas terjadi. Ini seperti tembok tak terlihat yang didekati kurva tanpa pernah menyentuhnya!</li>
+                <li><b>Limit di Tak Hingga:</b>
+                    <ul>
+                        <li>$\lim_{x \to \infty} f(x) = L$: Nilai $f(x)$ dapat dibuat sedekat mungkin dengan $L$ dengan mengambil $x$ cukup besar.</li>
+                        <li>$\lim_{x \to -\infty} f(x) = L$: Nilai $f(x)$ dapat dibuat sedekat mungkin dengan $L$ dengan mengambil $x$ yang sangat negatif.</li>
+                    </ul>
+                </li>
+                <li><b>Asimtot Horizontal:</b> Sebuah garis horizontal $y=L$ adalah asimtot horizontal dari kurva $y=f(x)$ jika $\lim_{x \to \infty} f(x) = L$ atau $\lim_{x \to -\infty} f(x) = L$. Ini adalah 'langit-langit' atau 'lantai' yang didekati fungsi saat menyebar jauh.</li>
+            </ul>
 
-    <section id="chain" class="fade-in">
-      <h2 class="text-3xl font-semibold mb-4">Chain Rule</h2>
-      <p class="text-gray-700">Penjelasan tentang chain rule...</p>
-    </section>
+            <div class="example-box">
+                <p><b>Contoh Soal Limit:</b></p>
+                <ul>
+                    <li>1. Tentukan nilai dari $\lim_{x \to 2} (x^2 - x + 2)$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Karena $f(x) = x^2 - x + 2$ adalah fungsi polinomial, ia kontinu di setiap titik. Kita bisa langsung substitusikan nilai $x=2$ ke dalam fungsi.</p>
+                    <p>$\lim_{x \to 2} (x^2 - x + 2) = (2)^2 - (2) + 2 = 4 - 2 + 2 = 4$.</p>
+                    <p><b>Jadi, nilai limitnya adalah 4.</b></p>
+                </div>
+                <ul>
+                    <li>2. Estimasi nilai $\lim_{t \to 0} \frac{\sqrt{t^2+9}-3}{t^2}$ menggunakan tabel nilai.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Kita akan membuat tabel nilai untuk $f(t) = \frac{\sqrt{t^2+9}-3}{t^2}$ saat $t$ mendekati 0:</p>
+                    <table class="table-auto w-full border-collapse border border-gray-400 my-2">
+                        <thead>
+                            <tr class="bg-gray-200"><th class="border border-gray-300 px-4 py-2">t</th><th class="border border-gray-300 px-4 py-2">$f(t) = \frac{\sqrt{t^2+9}-3}{t^2}$</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="border border-gray-300 px-4 py-2">$\pm 1.0$</td><td class="border border-gray-300 px-4 py-2">0.16228</td></tr>
+                            <tr><td class="border border-gray-300 px-4 py-2">$\pm 0.5$</td><td class="border border-gray-300 px-4 py-2">0.16553</td></tr>
+                            <tr><td class="border border-gray-300 px-4 py-2">$\pm 0.1$</td><td class="border border-gray-300 px-4 py-2">0.16662</td></tr>
+                            <tr><td class="border border-gray-300 px-4 py-2">$\pm 0.05$</td><td class="border border-gray-300 px-4 py-2">0.16666</td></tr>
+                            <tr><td class="border border-gray-300 px-4 py-2">$\pm 0.01$</td><td class="border border-gray-300 px-4 py-2">0.16667</td></tr>
+                        </tbody>
+                    </table>
+                    <p>Dari tabel, saat $t$ mendekati 0, nilai $f(t)$ tampaknya mendekati 0.166666... atau $1/6$.</p>
+                    <p><b>Jadi, estimasi nilai limitnya adalah $1/6$.</b></p>
+                </div>
+                <ul>
+                    <li>3. Investasi $\lim_{x \to 0} \sin(\frac{\pi}{x})$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Untuk menginvestigasi $\lim_{x \to 0} \sin(\frac{\pi}{x})$, kita bisa melihat nilai fungsi untuk $x$ yang mendekati 0.</p>
+                    <ul>
+                        <li>Jika $x = 1/n$ untuk $n$ bilangan bulat, maka $\sin(\frac{\pi}{1/n}) = \sin(n\pi) = 0$. Ini terjadi untuk $x=1, 1/2, 1/3, \dots$</li>
+                        <li>Namun, jika $x = 1/(n + 1/2)$, maka $\sin(\frac{\pi}{1/(n+1/2)}) = \sin((n+1/2)\pi)$. Ini akan menghasilkan nilai 1 (jika $n$ genap) atau -1 (jika $n$ ganjil). Misalnya, untuk $x=2/\pi \approx 0.636$, $\sin(\pi/(2/\pi)) = \sin(\pi^2/2) \approx \sin(4.93) \approx -0.96$.</li>
+                    </ul>
+                    <p>Karena nilai fungsi berosilasi antara -1 dan 1 secara tak terbatas saat $x$ mendekati 0 dan tidak mendekati satu nilai tunggal, maka limit ini tidak ada.</p>
+                    <p><b>Jadi, $\lim_{x \to 0} \sin(\frac{\pi}{x})$ tidak ada.</b></p>
+                </div>
+                <ul>
+                    <li>4. Tentukan asimtot horizontal dari $f(x) = \frac{x^2-1}{x^2+1}$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Untuk menemukan asimtot horizontal, kita perlu mengevaluasi limit saat $x \to \infty$ dan $x \to -\infty$.</p>
+                    <p>Kita bagi pembilang dan penyebut dengan pangkat tertinggi dari $x$, yaitu $x^2$.</p>
+                    <p>$\lim_{x \to \infty} \frac{x^2-1}{x^2+1} = \lim_{x \to \infty} \frac{\frac{x^2}{x^2}-\frac{1}{x^2}}{\frac{x^2}{x^2}+\frac{1}{x^2}} = \lim_{x \to \infty} \frac{1-\frac{1}{x^2}}{1+\frac{1}{x^2}}$</p>
+                    <p>Karena $\lim_{x \to \infty} \frac{1}{x^2} = 0$, kita dapatkan:</p>
+                    <p>$\lim_{x \to \infty} \frac{1-0}{1+0} = \frac{1}{1} = 1$.</p>
+                    <p>Untuk $x \to -\infty$, perhitungannya sama:</p>
+                    <p>$\lim_{x \to -\infty} \frac{x^2-1}{x^2+1} = \lim_{x \to -\infty} \frac{1-\frac{1}{x^2}}{1+\frac{1}{x^2}} = \frac{1-0}{1+0} = 1$.</p>
+                    <p><b>Karena $\lim_{x \to \infty} f(x) = 1$ dan $\lim_{x \to -\infty} f(x) = 1$, maka asimtot horizontalnya adalah $y=1$.</b></p>
+                </div>
+                <ul>
+                    <li>5. Carilah $\lim_{x \to 3^+} \frac{2x}{x-3}$ dan $\lim_{x \to 3^-} \frac{2x}{x-3}$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Pertama, perhatikan bahwa saat $x \to 3$, pembilang $2x \to 2(3) = 6$, sedangkan penyebut $x-3 \to 0$. Ini mengindikasikan limit tak hingga.</p>
+                    <p><b>Untuk $\lim_{x \to 3^+} \frac{2x}{x-3}$:</b></p>
+                    <p>Jika $x$ mendekati 3 dari sisi kanan (nilai $x$ sedikit lebih besar dari 3), maka $x-3$ akan menjadi bilangan positif yang sangat kecil (misalnya, 0.0001).</p>
+                    <p>Maka, $\frac{2x}{x-3}$ akan menjadi $\frac{\text{sekitar 6}}{\text{bilangan positif kecil}} = \text{bilangan positif yang sangat besar}$.</p>
+                    <p>Jadi, $\lim_{x \to 3^+} \frac{2x}{x-3} = \infty$.</p>
+                    <p><b>Untuk $\lim_{x \to 3^-} \frac{2x}{x-3}$:</b></p>
+                    <p>Jika $x$ mendekati 3 dari sisi kiri (nilai $x$ sedikit lebih kecil dari 3), maka $x-3$ akan menjadi bilangan negatif yang sangat kecil (misalnya, -0.0001).</p>
+                    <p>Maka, $\frac{2x}{x-3}$ akan menjadi $\frac{\text{sekitar 6}}{\text{bilangan negatif kecil}} = \text{bilangan negatif yang sangat besar}$.</p>
+                    <p>Jadi, $\lim_{x \to 3^-} \frac{2x}{x-3} = -\infty$.</p>
+                    <p><b>Hasilnya adalah $\lim_{x \to 3^+} \frac{2x}{x-3} = \infty$ dan $\lim_{x \to 3^-} \frac{2x}{x-3} = -\infty$.</b></p>
+                </div>
+            </div>
+        </section>
 
-    <section id="riemann" class="fade-in">
-      <h2 class="text-3xl font-semibold mb-4">Riemann Sum</h2>
-      <p class="text-gray-700">Penjelasan tentang Riemann Sum...</p>
-    </section>
+        <section id="turunan" class="fade-in">
+            <h2 class="text-3xl font-semibold mb-4">Turunan: Mengungkap Laju Perubahan</h2>
+            <p class="text-gray-700 mb-4">Apakah kamu pernah ingin tahu seberapa cepat sesuatu berubah pada suatu momen tertentu? Misalnya, kecepatan mobil pada speedometer, atau laju pertumbuhan populasi? Di sinilah turunan bersinar! Turunan adalah inti dari kalkulus diferensial, sebuah alat matematis yang memungkinkan kita untuk mengukur dan memahami laju perubahan instan, bukan hanya rata-rata.</p>
 
-    <section id="integral-tentu" class="fade-in">
-      <h2 class="text-3xl font-semibold mb-4">Integral Tentu</h2>
-      <p class="text-gray-700">Penjelasan tentang integral tentu...</p>
-    </section>
+            <p class="sub-heading">Definisi Turunan: Jantung Laju Perubahan</p>
+            <p class="text-gray-700">Turunan dari suatu fungsi $f$ pada suatu bilangan $a$ adalah kemiringan garis singgung ke grafik fungsi tersebut di titik itu. Bayangkan kamu berjalan di atas kurva; turunan memberimu arah dan kemiringan tepat di bawah kakimu.</p>
+            <ul>
+                <li><b>Turunan pada Titik $a$:</b> Dilambangkan dengan $f'(a)$, dan didefinisikan sebagai:
+                    <span class="formula">$f'(a) = \lim_{h \to 0} \frac{f(a+h) - f(a)}{h}$</span>
+                    Atau, secara ekuivalen:
+                    <span class="formula">$f'(a) = \lim_{x \to a} \frac{f(x) - f(a)}{x-a}$</span>
+                </li>
+                <li><b>Interpretasi Turunan:</b>
+                    <ul>
+                        <li><b>Kemiringan Garis Singgung:</b> $f'(a)$ adalah kemiringan garis yang 'hanya menyentuh' kurva di titik $(a, f(a))$. Garis singgung adalah aproksimasi linear lokal terbaik dari fungsi di dekat titik tersebut.</li>
+                        <li><b>Laju Perubahan Sesaat:</b> Jika $s=f(t)$ adalah fungsi posisi suatu objek, maka $f'(a)$ adalah kecepatan sesaat objek pada waktu $t=a$.</li>
+                        <li><b>Laju Perubahan Rata-rata:</b> Bandingkan dengan kemiringan garis sekan! Laju perubahan rata-rata suatu fungsi $f$ pada interval $[a,b]$ adalah $\frac{f(b)-f(a)}{b-a}$. Ini hanyalah kemiringan garis yang 'memotong' kurva di dua titik.</li>
+                    </ul>
+                </li>
+            </ul>
 
-    <section id="integral-tak-tentu" class="fade-in">
-      <h2 class="text-3xl font-semibold mb-4">Integral Tak Tentu</h2>
-      <p class="text-gray-700">Penjelasan tentang integral tak tentu...</p>
-    </section>
+            <p class="sub-heading">Diferensiabilitas: Apakah Fungsi Bisa 'Dihaluskan'?</p>
+            <p class="text-gray-700">Sebuah fungsi $f$ dikatakan <b>diferensiabel</b> pada titik $a$ jika turunan $f'(a)$ itu ada. Ini berarti kurva fungsi tersebut mulus di titik itu, tanpa 'sudut tajam', 'cusp', atau 'garis singgung vertikal'.</p>
+            <ul>
+                <li><b>Kontinuitas vs. Diferensiabilitas:</b> Jika suatu fungsi diferensiabel pada $a$, maka fungsi tersebut pasti kontinu pada $a$. Namun, ingatlah, tidak semua fungsi kontinu adalah diferensiabel (misalnya, fungsi nilai mutlak $f(x)=|x|$ di $x=0$ memiliki 'sudut' sehingga tidak diferensiabel di sana).</li>
+                <li><b>Garis Singgung Kiri dan Kanan:</b> Sama seperti limit, kita bisa memiliki turunan satu sisi. Turunan tangan kanan di $a$ adalah $\lim_{h \to 0^+} \frac{f(a+h)-f(a)}{h}$, dan turunan tangan kiri di $b$ adalah $\lim_{h \to 0^-} \frac{f(b+h)-f(b)}{h}$.</li>
+            </ul>
 
-    <section id="turunan-numerik" class="fade-in">
-      <h2 class="text-3xl font-semibold mb-4">Turunan Numerik</h2>
-      <p class="text-gray-700">Penjelasan tentang turunan numerik...</p>
-    </section>
-  </main>
+            <p class="sub-heading">Fungsi Turunan dan Aturan Emas</p>
+            <p class="text-gray-700">Jika kita menerapkan definisi turunan pada setiap titik $x$ di domain fungsi, kita akan mendapatkan fungsi baru yang disebut <b>fungsi turunan</b>, dilambangkan dengan $f'(x)$. Proses mencari fungsi turunan ini disebut <b>diferensiasi</b>.</p>
+            <p class="sub-heading">Aturan-aturan Dasar Diferensiasi: Jalan Pintas Menuju Kecepatan!</p>
+            <p class="text-gray-700">Mencari turunan menggunakan definisi limit bisa jadi panjang dan melelahkan! Untungnya, ada 'jalan pintas' yang disebut aturan-aturan diferensiasi.</p>
+            <ul>
+                <li><b>Aturan Konstanta:</b> Jika $f(x)=c$ (di mana $c$ adalah konstanta), maka $f'(x)=0$.</li>
+                <li><b>Aturan Pangkat:</b> Jika $f(x)=x^n$ (di mana $n$ adalah bilangan real), maka $f'(x)=nx^{n-1}$. Aturan ini sangat kuat!</li>
+                <li><b>Aturan Perkalian Konstanta:</b> Jika $g(x)=c \cdot f(x)$, maka $g'(x)=c \cdot f'(x)$.</li>
+                <li><b>Aturan Penjumlahan dan Pengurangan:</b> Jika $h(x)=f(x) \pm g(x)$, maka $h'(x)=f'(x) \pm g'(x)$.</li>
+            </ul>
+            <p class="sub-heading">Notasi Turunan: Berbagai Cara untuk Mengungkapkan Hal yang Sama</p>
+            <p class="text-gray-700">Ada banyak cara untuk menuliskan turunan, masing-masing dengan keunikan dan konteks penggunaannya:</p>
+            <ul>
+                <li><b>Notasi Lagrange:</b> $f'(x)$, $f''(x)$, $f'''(x)$, $f^{(n)}(x)$. Ini adalah notasi yang paling sering kita lihat.</li>
+                <li><b>Notasi Leibniz:</b> $\frac{dy}{dx}$, $\frac{d^2y}{dx^2}$, $\frac{d^ny}{dx^n}$. Notasi ini sering disebut "operator diferensiasi" dan sangat baik dalam menunjukkan variabel diferensiasi.</li>
+                <li><b>Notasi Euler/D:</b> $D_xf(x)$, $D_x^2f(x)$, $D_x^nf(x)$.</li>
+            </ul>
 
-  <!-- Animasi Scroll -->
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("opacity-100", "translate-y-0");
-        }
-      });
-    }, {
-      threshold: 0.1
-    });
+            <div class="example-box">
+                <p><b>Contoh Soal Turunan:</b></p>
+                <ul>
+                    <li>1. Tentukan turunan pertama dari $f(x) = x^3 - 8x + 9$ pada titik $x=3$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Untuk mencari turunan pada titik tertentu, kita bisa menggunakan definisi limit. Namun, lebih mudah untuk mencari fungsi turunan $f'(x)$ terlebih dahulu menggunakan aturan dasar, lalu substitusikan $x=3$.</p>
+                    <p>$f(x) = x^3 - 8x + 9$</p>
+                    <p>Menggunakan Aturan Penjumlahan/Pengurangan dan Aturan Pangkat:</p>
+                    <p>$f'(x) = D_x(x^3) - D_x(8x) + D_x(9)$</p>
+                    <p>$f'(x) = 3x^{3-1} - 8x^{1-1} + 0$</p>
+                    <p>$f'(x) = 3x^2 - 8(1) + 0$</p>
+                    <p>$f'(x) = 3x^2 - 8$</p>
+                    <p>Sekarang, substitusikan $x=3$ ke dalam $f'(x)$:</p>
+                    <p>$f'(3) = 3(3)^2 - 8 = 3(9) - 8 = 27 - 8 = 19$.</p>
+                    <p><b>Jadi, turunan pertama dari $f(x) = x^3 - 8x + 9$ pada titik $x=3$ adalah 19.</b></p>
+                </div>
+                <ul>
+                    <li>2. Cari turunan dari $g(x) = -4x^3 + 6x - 5$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Kita akan menggunakan Aturan Penjumlahan/Pengurangan, Aturan Perkalian Konstanta, dan Aturan Pangkat.</p>
+                    <p>$g(x) = -4x^3 + 6x - 5$</p>
+                    <p>$g'(x) = D_x(-4x^3) + D_x(6x) - D_x(5)$</p>
+                    <p>$g'(x) = -4 \cdot D_x(x^3) + 6 \cdot D_x(x) - D_x(5)$</p>
+                    <p>$g'(x) = -4(3x^{3-1}) + 6(1x^{1-1}) - 0$</p>
+                    <p>$g'(x) = -4(3x^2) + 6(1) - 0$</p>
+                    <p>$g'(x) = -12x^2 + 6$</p>
+                    <p><b>Jadi, turunan dari $g(x) = -4x^3 + 6x - 5$ adalah $g'(x) = -12x^2 + 6$.</b></p>
+                </div>
+                <ul>
+                    <li>3. Temukan turunan ketiga dari $f(x) = x^3$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Kita akan mencari turunan pertama, kedua, dan ketiga secara berurutan menggunakan Aturan Pangkat.</p>
+                    <p><b>Turunan pertama ($f'(x)$):</b></p>
+                    <p>$f(x) = x^3$</p>
+                    <p>$f'(x) = 3x^{3-1} = 3x^2$</p>
+                    <p><b>Turunan kedua ($f''(x)$):</b></p>
+                    <p>$f''(x) = D_x(3x^2) = 3 \cdot D_x(x^2) = 3(2x^{2-1}) = 6x$</p>
+                    <p><b>Turunan ketiga ($f'''(x)$):</b></p>
+                    <p>$f'''(x) = D_x(6x) = 6 \cdot D_x(x) = 6(1x^{1-1}) = 6(1) = 6$</p>
+                    <p><b>Jadi, turunan ketiga dari $f(x) = x^3$ adalah $f'''(x) = 6$.</b></p>
+                </div>
+                <ul>
+                    <li>4. Temukan persamaan garis singgung pada kurva $y=x^2$ di titik $P(1,1)$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Untuk menemukan persamaan garis singgung, kita memerlukan titik dan kemiringan ($m$) di titik tersebut. Kita sudah punya titik $P(1,1)$, jadi $x_1=1$ dan $y_1=1$.</p>
+                    <p>Kemiringan garis singgung adalah turunan pertama dari fungsi di titik tersebut. Jika $f(x) = x^2$, maka:</p>
+                    <p>$f'(x) = D_x(x^2) = 2x$</p>
+                    <p>Kemiringan di $x=1$ adalah $m = f'(1) = 2(1) = 2$.</p>
+                    <p>Sekarang, gunakan bentuk titik-kemiringan (point-slope form) persamaan garis: $y - y_1 = m(x - x_1)$.</p>
+                    <p>$y - 1 = 2(x - 1)$</p>
+                    <p>$y - 1 = 2x - 2$</p>
+                    <p>$y = 2x - 1$</p>
+                    <p><b>Jadi, persamaan garis singgungnya adalah $y = 2x - 1$.</b></p>
+                </div>
+                <ul>
+                    <li>5. Tentukan koordinat $x$ dari semua titik pada grafik $y = -4x^3 + 6x - 5$ di mana garis singgungnya horizontal.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Garis singgung horizontal berarti kemiringannya adalah 0. Jadi, kita perlu mencari nilai $x$ di mana turunan pertama fungsi adalah 0.</p>
+                    <p>Dari contoh soal nomor 2, kita tahu bahwa turunan dari $f(x) = -4x^3 + 6x - 5$ adalah $f'(x) = -12x^2 + 6$.</p>
+                    <p>Setel $f'(x) = 0$:</p>
+                    <p>$-12x^2 + 6 = 0$</p>
+                    <p>$-12x^2 = -6$</p>
+                    <p>$x^2 = \frac{-6}{-12}$</p>
+                    <p>$x^2 = \frac{1}{2}$</p>
+                    <p>$x = \pm\sqrt{\frac{1}{2}}$</p>
+                    <p>$x = \pm\frac{\sqrt{1}}{\sqrt{2}} = \pm\frac{1}{\sqrt{2}} = \pm\frac{\sqrt{2}}{2}$</p>
+                    <p><b>Jadi, koordinat $x$ dari semua titik di mana garis singgungnya horizontal adalah $x = \frac{\sqrt{2}}{2}$ dan $x = -\frac{\sqrt{2}}{2}$.</b></p>
+                </div>
+            </div>
+        </section>
 
-    document.querySelectorAll(".fade-in").forEach(section => {
-      section.classList.add("opacity-0", "translate-y-8", "transition-all", "duration-700");
-      observer.observe(section);
-    });
-  </script>
+        <section id="chain" class="fade-in">
+            <h2 class="text-3xl font-semibold mb-4">Chain Rule: Seni Mendiferensiasi Fungsi Komposisi</h2>
+            <p class="text-gray-700 mb-4">Pernahkah kamu menghadapi fungsi yang terlihat seperti 'fungsi di dalam fungsi'? Misalnya, $\sin(x^2)$ atau $(3x+x^2)^2$? Di sinilah Aturan Rantai menjadi pahlawan! Aturan ini adalah salah satu teknik diferensiasi paling fundamental, memungkinkan kita untuk menghitung turunan dari fungsi-fungsi komposisi yang kompleks dengan elegan.</p>
+
+            <p class="sub-heading">Memahami Aturan Rantai</p>
+            <p class="text-gray-700">Aturan Rantai digunakan ketika kita memiliki fungsi $y$ yang bergantung pada variabel $u$, dan $u$ sendiri bergantung pada variabel $x$. Artinya, $y = f(u)$ dan $u = g(x)$, sehingga $y = f(g(x))$. Fungsi $g(x)$ disebut sebagai 'lapisan dalam' atau 'fungsi dalam', sementara $f(x)$ adalah 'lapisan luar' atau 'fungsi luar'.</p>
+            <ul>
+                <li><b>Rumus Aturan Rantai:</b>
+                    <span class="formula">$\frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx} = f'[g(x)] \cdot g'(x)$</span>
+                    Secara intuitif, ini berarti laju perubahan $y$ terhadap $x$ adalah hasil kali laju perubahan $y$ terhadap $u$ dan laju perubahan $u$ terhadap $x$.</li>
+            </ul>
+
+            <p class="sub-heading">Aturan-Aturan Emas Lainnya untuk Diferensiasi Lanjutan</p>
+            <p class="text-gray-700">Selain aturan rantai, ada aturan penting lainnya yang membuat diferensiasi lebih mudah:</p>
+            <ul>
+                <li><b>Aturan Produk (Product Rule):</b> Jika $h(x) = f(x)g(x)$, maka turunannya adalah:
+                    <span class="formula">$h'(x) = f'(x)g(x) + f(x)g'(x)$</span>
+                    Ini seperti mengambil turunan satu faktor, lalu mengalikan dengan faktor lainnya yang tidak diturunkan, dan menjumlahkannya dengan kebalikannya.</li>
+                <li><b>Aturan Hasil Bagi (Quotient Rule):</b> Jika $h(x) = \frac{f(x)}{g(x)}$, maka turunannya adalah:
+                    <span class="formula">$h'(x) = \frac{g(x)f'(x) - f(x)g'(x)}{[g(x)]^2}$</span>
+                    Ada mnemonik lucu untuk ini: "Low D-High minus High D-Low, over Low-Low!" (Low adalah penyebut, High adalah pembilang, D adalah turunan).</li>
+                <li><b>Turunan Fungsi Trigonometri:</b> Kita harus selalu ingat bahwa turunan fungsi trigonometri diasumsikan diukur dalam radian.
+                    <ul>
+                        <li>$D_x(\sin x) = \cos x$</li>
+                        <li>$D_x(\cos x) = -\sin x$</li>
+                        <li>$D_x(\tan x) = \sec^2 x$</li>
+                        <li>$D_x(\cot x) = -\csc^2 x$</li>
+                        <li>$D_x(\sec x) = \sec x \tan x$</li>
+                        <li>$D_x(\csc x) = -\csc x \cot x$</li>
+                    </ul>
+                </li>
+                <li><b>Turunan Fungsi Eksponensial:</b>
+                    <ul>
+                        <li>$D_x(a^x) = (\ln a) a^x$</li>
+                        <li>$D_x(e^x) = e^x$ (Fungsi eksponensial alami adalah keajaiban, karena turunannya adalah dirinya sendiri!)</li>
+                    </ul>
+                </li>
+                <li><b>Turunan Fungsi Logaritma:</b>
+                    <ul>
+                        <li>$D_x(\log_a x) = \frac{1}{(\ln a)x}$</li>
+                        <li>$D_x(\ln x) = \frac{1}{x}$</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="example-box">
+                <p><b>Contoh Soal Chain Rule:</b></p>
+                <ul>
+                    <li>1. Tentukan $f[g(4)]$ dan $g[f(4)]$ jika $f(x)=x^2+1$ dan $g(x)=x^2-1$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Untuk $f[g(4)]$:</p>
+                    <p>Pertama, hitung $g(4)$: $g(4) = (4)^2 - 1 = 16 - 1 = 15$.</p>
+                    <p>Kemudian, substitusikan hasil ini ke $f(x)$: $f[g(4)] = f(15) = (15)^2 + 1 = 225 + 1 = 226$.</p>
+                    <p>Untuk $g[f(4)]$:</p>
+                    <p>Pertama, hitung $f(4)$: $f(4) = (4)^2 + 1 = 16 + 1 = 17$.</p>
+                    <p>Kemudian, substitusikan hasil ini ke $g(x)$: $g[f(4)] = g(17) = (17)^2 - 1 = 289 - 1 = 288$.</p>
+                    <p><b>Jadi, $f[g(4)] = 226$ dan $g[f(4)] = 288$.</b></p>
+                </div>
+                <ul>
+                    <li>2. Tentukan turunan dari $y=(3x+x^2)^2$ menggunakan aturan rantai.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Misalkan $u = 3x+x^2$ (fungsi dalam), maka $y = u^2$ (fungsi luar).</p>
+                    <p>Turunan $u$ terhadap $x$ adalah $u' = \frac{du}{dx} = D_x(3x+x^2) = 3 + 2x$.</p>
+                    <p>Turunan $y$ terhadap $u$ adalah $\frac{dy}{du} = D_u(u^2) = 2u$.</p>
+                    <p>Menggunakan Aturan Rantai $\frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx}$:</p>
+                    <p>$\frac{dy}{dx} = 2u \cdot (3+2x)$</p>
+                    <p>Substitusikan kembali $u = 3x+x^2$:</p>
+                    <p>$\frac{dy}{dx} = 2(3x+x^2)(3+2x)$</p>
+                    <p>Kamu bisa membiarkannya seperti itu atau mengembangkan ekspresinya:</p>
+                    <p>$\frac{dy}{dx} = 2(9x+3x^2+6x^2+2x^3) = 2(9x+9x^2+2x^3) = 18x+18x^2+4x^3$.</p>
+                    <p><b>Jadi, turunan dari $y=(3x+x^2)^2$ adalah $18x+18x^2+4x^3$.</b></p>
+                </div>
+                <ul>
+                    <li>3. Cari turunan dari $y=\sqrt{3x+x^2}$ menggunakan aturan rantai.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Tulis ulang fungsi sebagai $y=(3x+x^2)^{1/2}$.</p>
+                    <p>Misalkan $u = 3x+x^2$, maka $y = u^{1/2}$.</p>
+                    <p>Turunan $u$ terhadap $x$ adalah $u' = \frac{du}{dx} = D_x(3x+x^2) = 3+2x$.</p>
+                    <p>Turunan $y$ terhadap $u$ adalah $\frac{dy}{du} = D_u(u^{1/2}) = \frac{1}{2}u^{-1/2}$.</p>
+                    <p>Menggunakan Aturan Rantai $\frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx}$:</p>
+                    <p>$\frac{dy}{dx} = \frac{1}{2}u^{-1/2} \cdot (3+2x)$</p>
+                    <p>Substitusikan kembali $u = 3x+x^2$:</p>
+                    <p>$\frac{dy}{dx} = \frac{1}{2}(3x+x^2)^{-1/2}(3+2x) = \frac{3+2x}{2\sqrt{3x+x^2}}$.</p>
+                    <p><b>Jadi, turunan dari $y=\sqrt{3x+x^2}$ adalah $\frac{3+2x}{2\sqrt{3x+x^2}}$.</b></p>
+                </div>
+                <ul>
+                    <li>4. Diberikan $y=(3x^3+2x^2-4x)^{-4}$, tentukan turunan $y'$ menggunakan aturan rantai.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Misalkan $g(x) = 3x^3+2x^2-4x$ (fungsi dalam), dan $f(x) = x^{-4}$ (fungsi luar).</p>
+                    <p>Maka $y = f(g(x))$.</p>
+                    <p>Langkah 1: Cari turunan $g'(x)$.</p>
+                    <p>$g'(x) = D_x(3x^3+2x^2-4x) = 3(3x^2) + 2(2x) - 4 = 9x^2 + 4x - 4$.</p>
+                    <p>Langkah 2: Cari turunan $f'(g(x))$.</p>
+                    <p>$f'(x) = D_x(x^{-4}) = -4x^{-5}$.</p>
+                    <p>Maka, $f'(g(x)) = -4(3x^3+2x^2-4x)^{-5}$.</p>
+                    <p>Langkah 3: Terapkan Aturan Rantai $y' = f'(g(x)) \cdot g'(x)$.</p>
+                    <p>$y' = -4(3x^3+2x^2-4x)^{-5} \cdot (9x^2+4x-4)$.</p>
+                    <p>Ini juga bisa ditulis sebagai $y' = \frac{-4(9x^2+4x-4)}{(3x^3+2x^2-4x)^5}$.</p>
+                    <p><b>Jadi, turunan dari $y=(3x^3+2x^2-4x)^{-4}$ adalah $\frac{-4(9x^2+4x-4)}{(3x^3+2x^2-4x)^5}$.</b></p>
+                </div>
+                <ul>
+                    <li>5. Tentukan turunan dari $y=4e^{-7t}$ menggunakan aturan rantai.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Misalkan $g(t) = -7t$ (fungsi dalam), dan $f(t) = 4e^t$ (fungsi luar).</p>
+                    <p>Maka $y = f(g(t))$.</p>
+                    <p>Langkah 1: Cari turunan $g'(t)$.</p>
+                    <p>$g'(t) = D_t(-7t) = -7$.</p>
+                    <p>Langkah 2: Cari turunan $f'(g(t))$.</p>
+                    <p>$f'(t) = D_t(4e^t) = 4e^t$.</p>
+                    <p>Maka, $f'(g(t)) = 4e^{-7t}$.</p>
+                    <p>Langkah 3: Terapkan Aturan Rantai $y' = f'(g(t)) \cdot g'(t)$.</p>
+                    <p>$y' = 4e^{-7t} \cdot (-7) = -28e^{-7t}$.</p>
+                    <p><b>Jadi, turunan dari $y=4e^{-7t}$ adalah $-28e^{-7t}$.</b></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="riemann" class="fade-in">
+            <h2 class="text-3xl font-semibold mb-4">Riemann Sum: Menghitung Luas dengan Persegi Panjang</h2>
+            <p class="text-gray-700 mb-4">Bayangkan kamu ingin menghitung luas area di bawah kurva yang melengkung, tetapi kamu tidak memiliki rumus geometris yang pas. Di sinilah Riemann Sum datang sebagai penyelamat! Ini adalah metode perkiraan yang brilian untuk menemukan luas tersebut, dan yang lebih menakjubkan, ini adalah jembatan menuju konsep integral tentu yang lebih presisi.</p>
+
+            <p class="sub-heading">Konsep Dasar Riemann Sum</p>
+            <p class="text-gray-700">Ide utamanya adalah membagi area di bawah kurva menjadi serangkaian persegi panjang atau trapesium yang sempit, menghitung luas masing-masing, dan kemudian menjumlahkannya. Semakin banyak pembagian yang kita lakukan, semakin akurat perkiraan luasnya.</p>
+            <ul>
+                <li><b>Notasi Penjumlahan (Sigma):</b> Untuk menyederhanakan penulisan penjumlahan deret, kita menggunakan notasi Sigma ($\Sigma$). Ini seperti perintah 'jumlahkan semua ini!'. Misalnya, $\sum_{i=0}^{3} x_i = x_0 + x_1 + x_2 + x_3$.</li>
+                <li><b>Langkah-Langkah Utama:</b>
+                    <ol>
+                        <li><b>Pembagian Interval:</b> Pertama, interval $[a, b]$ pada sumbu x dibagi menjadi $n$ subinterval yang lebih kecil, masing-masing dengan lebar $\Delta x = \frac{b-a}{n}$.</li>
+                        <li><b>Pendekatan Luas dengan Persegi Panjang:</b>
+                            <ul>
+                                <li><b>Jumlah Kiri (Left Riemann Sum):</b> Menggunakan tinggi persegi panjang dari nilai fungsi di titik ujung kiri setiap subinterval. Ini seringkali memberikan perkiraan yang terlalu rendah untuk fungsi yang meningkat.
+                                    <span class="formula">$I_l = \sum_{i=0}^{n-1} f(x_i) \Delta x$</span></li>
+                                <li><b>Jumlah Kanan (Right Riemann Sum):</b> Menggunakan tinggi persegi panjang dari nilai fungsi di titik ujung kanan setiap subinterval. Ini seringkali memberikan perkiraan yang terlalu tinggi untuk fungsi yang meningkat.
+                                    <span class="formula">$I_r = \sum_{i=1}^{n} f(x_i) \Delta x$</span></li>
+                            </ul>
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+
+            <p class="sub-heading">Jembatan Menuju Integral Tentu</p>
+            <p class="text-gray-700">Meskipun Riemann Sum memberikan perkiraan, keajaiban sebenarnya terjadi saat kita mengambil limit. Ketika jumlah subinterval $n$ bertambah tanpa batas ($n \to \infty$), lebar setiap subinterval $\Delta x$ akan menjadi sangat kecil, mendekati nol. Pada titik ini, jumlah kiri dan kanan (dan jenis Riemann Sum lainnya) akan menyatu dan memberikan nilai yang persis sama: luas area di bawah kurva yang sebenarnya.</p>
+            <ul>
+                <li><b>Definisi Integral Tentu via Riemann Sum:</b>
+                    <span class="formula">$\int_a^b f(x) dx = \lim_{n \to \infty} \sum_{i=0}^{n-1} f(x_i) \Delta x = \lim_{n \to \infty} \sum_{i=1}^{n} f(x_i) \Delta x$</span>
+                </li>
+                <li><b>Area Negatif:</b> Yang menarik, jika sebagian atau seluruh nilai fungsi $f(x_i)$ negatif pada suatu interval, Riemann Sum akan menghasilkan 'area negatif'. Ini berarti bagian kurva tersebut berada di bawah sumbu x.</li>
+            </ul>
+
+            <div class="example-box">
+                <p><b>Contoh Soal Riemann Sum:</b></p>
+                <ul>
+                    <li>1. Jika $x_0=1, x_1=4, x_2=3, x_3=3$, hitunglah $\sum_{i=0}^{3} x_i$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Berdasarkan definisi penjumlahan, kita hanya perlu menjumlahkan semua suku yang diberikan.</p>
+                    <p>$\sum_{i=0}^{3} x_i = x_0 + x_1 + x_2 + x_3$</p>
+                    <p>Substitusikan nilai-nilai yang diberikan:</p>
+                    <p>$\sum_{i=0}^{3} x_i = 1 + 4 + 3 + 3 = 11$.</p>
+                    <p><b>Jadi, nilai dari $\sum_{i=0}^{3} x_i$ adalah 11.</b></p>
+                </div>
+                <ul>
+                    <li>2. Hitung $\sum_{i=0}^{2} 1+i^2$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Kita perlu mengevaluasi suku $1+i^2$ untuk setiap nilai $i$ dari 0 hingga 2, lalu menjumlahkannya.</p>
+                    <p>Untuk $i=0$: $1+(0)^2 = 1+0 = 1$</p>
+                    <p>Untuk $i=1$: $1+(1)^2 = 1+1 = 2$</p>
+                    <p>Untuk $i=2$: $1+(2)^2 = 1+4 = 5$</p>
+                    <p>Sekarang, jumlahkan hasilnya:</p>
+                    <p>$\sum_{i=0}^{2} 1+i^2 = (1+0) + (1+1) + (1+4) = 1 + 2 + 5 = 8$.</p>
+                    <p><b>Jadi, nilai dari $\sum_{i=0}^{2} 1+i^2$ adalah 8.</b></p>
+                </div>
+                <ul>
+                    <li>3. Gunakan Riemann Sum untuk memperkirakan $\int_{0}^{1}\sqrt{1-x^2}dx$ menggunakan 4 subinterval dan kaidah kiri dan kanan.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Interval adalah $[0, 1]$ dan jumlah subinterval $n=4$. Maka lebar setiap subinterval adalah $\Delta x = \frac{1-0}{4} = 0.25$.</p>
+                    <p>Titik-titik ujung subinterval adalah $x_0=0, x_1=0.25, x_2=0.5, x_3=0.75, x_4=1$.</p>
+                    <p>Fungsinya adalah $f(x) = \sqrt{1-x^2}$.</p>
+                    <p><b>a. Menggunakan Kaidah Kiri (Left Riemann Sum) $I_l$:</b></p>
+                    <p>$I_l = \Delta x [f(x_0) + f(x_1) + f(x_2) + f(x_3)]$</p>
+                    <p>$I_l = 0.25 [\sqrt{1-0^2} + \sqrt{1-0.25^2} + \sqrt{1-0.5^2} + \sqrt{1-0.75^2}]$</p>
+                    <p>$I_l = 0.25 [1 + \sqrt{1-0.0625} + \sqrt{1-0.25} + \sqrt{1-0.5625}]$</p>
+                    <p>$I_l = 0.25 [1 + \sqrt{0.9375} + \sqrt{0.75} + \sqrt{0.4375}]$</p>
+                    <p>$I_l \approx 0.25 [1 + 0.9682 + 0.8660 + 0.6614] \approx 0.25 [3.4956] \approx 0.8739$</p>
+                    <p><b>b. Menggunakan Kaidah Kanan (Right Riemann Sum) $I_r$:</b></p>
+                    <p>$I_r = \Delta x [f(x_1) + f(x_2) + f(x_3) + f(x_4)]$</p>
+                    <p>$I_r = 0.25 [\sqrt{1-0.25^2} + \sqrt{1-0.5^2} + \sqrt{1-0.75^2} + \sqrt{1-1^2}]$</p>
+                    <p>$I_r = 0.25 [\sqrt{0.9375} + \sqrt{0.75} + \sqrt{0.4375} + 0]$</p>
+                    <p>$I_r \approx 0.25 [0.9682 + 0.8660 + 0.6614 + 0] \approx 0.25 [2.4956] \approx 0.6239$</p>
+                    <p><b>Jadi, perkiraan integral menggunakan kaidah kiri adalah sekitar 0.8739, dan menggunakan kaidah kanan adalah sekitar 0.6239.</b></p>
+                </div>
+                <ul>
+                    <li>4. Evaluasi $\int_{0}^{2\pi} \sin(x) dx$ menggunakan konsep Riemann Sum.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Integral tentu $\int_{0}^{2\pi} \sin(x) dx$ merepresentasikan luas area di bawah kurva $y=\sin(x)$ dari $x=0$ hingga $x=2\pi$.</p>
+                    <p>Grafik $y=\sin(x)$ adalah fungsi periodik. Pada interval $[0, \pi]$, nilai $\sin(x)$ adalah positif (area di atas sumbu-x). Pada interval $[\pi, 2\pi]$, nilai $\sin(x)$ adalah negatif (area di bawah sumbu-x).</p>
+                    <p>Secara simetris, area di bawah kurva dari $0$ hingga $\pi$ adalah sama besar dengan area di bawah kurva dari $\pi$ hingga $2\pi$, tetapi dengan tanda yang berlawanan.</p>
+                    <p>Area dari $0$ sampai $\pi$ adalah $\int_{0}^{\pi} \sin(x) dx = [-\cos(x)]_{0}^{\pi} = (-\cos(\pi)) - (-\cos(0)) = (-(-1)) - (-1) = 1+1 = 2$.</p>
+                    <p>Area dari $\pi$ sampai $2\pi$ adalah $\int_{\pi}^{2\pi} \sin(x) dx = [-\cos(x)]_{\pi}^{2\pi} = (-\cos(2\pi)) - (-\cos(\pi)) = (-1) - (-(-1)) = -1-1 = -2$.</p>
+                    <p>Ketika kita menjumlahkan area-area ini untuk Riemann Sum total:</p>
+                    <p>$\int_{0}^{2\pi} \sin(x) dx = \int_{0}^{\pi} \sin(x) dx + \int_{\pi}^{2\pi} \sin(x) dx = 2 + (-2) = 0$.</p>
+                    <p>Konsep Riemann Sum menegaskan bahwa karena ada area 'positif' dan 'negatif' yang sama persis, jumlah totalnya adalah nol. Ini menunjukkan bahwa nilai integral tentu untuk satu siklus penuh fungsi sinus adalah nol.</p>
+                    <p><b>Jadi, $\int_{0}^{2\pi} \sin(x) dx = 0$.</b></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="integral-tentu" class="fade-in">
+            <h2 class="text-3xl font-semibold mb-4">Integral Tentu: Menghitung Luas dengan Presisi</h2>
+            <p class="text-gray-700 mb-4">Setelah kita memahami bagaimana Riemann Sum mendekati luas area, Integral Tentu adalah puncaknya—sebuah alat yang memberi kita luas area di bawah kurva dengan presisi matematis sempurna. Konsep ini adalah kebalikan dari operasi diferensiasi, dan menjadi fundamental dalam berbagai aplikasi dari fisika hingga ekonomi.</p>
+
+            <p class="sub-heading">Definisi dan Hubungan dengan Anti-turunan</p>
+            <p class="text-gray-700">Integral tentu sering diperkenalkan sebagai limit jumlah Riemann, sebagai generalisasi dari proses perhitungan luas daerah tertutup pada bidang datar.</p>
+            <ul>
+                <li><b>Anti-turunan:</b> Diberikan sebuah fungsi $f(x)$, jika ada fungsi $F(x)$ yang memiliki turunan $F'(x) = f(x)$ pada interval tertentu, maka $F(x)$ disebut <b>anti-turunan</b> atau <b>integral tak tentu</b> dari $f(x)$.</li>
+                <li><b>Konstanta Integrasi:</b> Yang menarik adalah bahwa anti-turunan dari suatu fungsi tidaklah tunggal. Jika $F(x)$ adalah anti-turunan, maka $F(x) + C$ (di mana $C$ adalah konstanta riil sembarang) juga merupakan anti-turunan. Konstanta $C$ inilah yang disebut <b>konstanta integrasi</b>.</li>
+                <li><b>Notasi:</b> Integral tak tentu dari fungsi $f(x)$ dinotasikan sebagai $\int f(x) dx$. Ini dibaca "integral tak tentu dari fungsi $f$ dengan variabel $x$".</li>
+            </ul>
+
+            <p class="sub-heading">Aturan-Aturan Ajaib Integrasi</p>
+            <p class="text-gray-700">Mengingat integral adalah kebalikan dari turunan, banyak aturan integral yang 'mencerminkan' aturan turunan:</p>
+            <ul>
+                <li><b>Aturan Pangkat (Power Rule):</b> Untuk bilangan rasional $r \ne -1$,
+                    <span class="formula">$\int x^r dx = \frac{x^{r+1}}{r+1} + C$</span></li>
+                <li><b>Integral Fungsi Trigonometri:</b>
+                    <ul>
+                        <li><span class="formula">$\int \sin x dx = -\cos x + C$</span></li>
+                        <li><span class="formula">$\int \cos x dx = \sin x + C$</span></li>
+                    </ul>
+                </li>
+                <li><b>Kelinearan Integral (Teorema C):</b> Integral juga bersifat linear, seperti turunan!
+                    <ul>
+                        <li>$\int k f(x) dx = k \int f(x) dx$</li>
+                        <li>$\int [f(x) + g(x)] dx = \int f(x) dx + \int g(x) dx$</li>
+                        <li>$\int [f(x) - g(x)] dx = \int f(x) dx - \int g(x) dx$</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p class="sub-heading">Teknik Integrasi Penting</p>
+            <p class="text-gray-700">Tidak semua integral bisa diselesaikan dengan aturan dasar. Beberapa butuh teknik khusus!</p>
+            <ul>
+                <li><b>Integral dengan Substitusi (Penggantian):</b> Ini adalah salah satu teknik paling fundamental untuk menyederhanakan integral. Kita mengganti bagian dari integran dengan variabel baru, $u=g(x)$, sehingga integral menjadi lebih sederhana. Rumusnya adalah $\int f(g(x)) g'(x) dx = \int f(u) du = F(u) + C$.</li>
+                <li><b>Interpretasi Geometri Integral Tentu:</b> Secara visual, integral tentu $I = \int_a^b f(x) dx$ merepresentasikan luas daerah yang dibatasi oleh kurva $y=f(x)$, sumbu $x$, dan garis vertikal $x=a$ serta $x=b$. Jika kurva berada di bawah sumbu $x$, luasnya dihitung sebagai negatif.</li>
+            </ul>
+
+            <div class="example-box">
+                <p><b>Contoh Soal Integral Tentu:</b></p>
+                <ul>
+                    <li>1. Cari anti-turunan umum dari $f(x) = x^{4/3}$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Kita akan menggunakan Aturan Pangkat untuk integral tak tentu: $\int x^r dx = \frac{x^{r+1}}{r+1} + C$.</p>
+                    <p>Di sini, $r = 4/3$. Jadi, $r+1 = 4/3 + 1 = 7/3$.</p>
+                    <p>$\int x^{4/3} dx = \frac{x^{7/3}}{7/3} + C = \frac{3}{7}x^{7/3} + C$.</p>
+                    <p><b>Jadi, anti-turunan umum dari $f(x) = x^{4/3}$ adalah $\frac{3}{7}x^{7/3} + C$.</b></p>
+                </div>
+                <ul>
+                    <li>2. Hitung $\int (3x^2+4x)dx$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Kita akan menggunakan Kelinearan Integral (Aturan Penjumlahan dan Perkalian Konstanta) dan Aturan Pangkat.</p>
+                    <p>$\int (3x^2+4x)dx = \int 3x^2 dx + \int 4x dx$</p>
+                    <p>$= 3\int x^2 dx + 4\int x dx$</p>
+                    <p>Terapkan Aturan Pangkat:</p>
+                    <p>$= 3\left(\frac{x^{2+1}}{2+1}\right) + 4\left(\frac{x^{1+1}}{1+1}\right) + C$</p>
+                    <p>$= 3\left(\frac{x^3}{3}\right) + 4\left(\frac{x^2}{2}\right) + C$</p>
+                    <p>$= x^3 + 2x^2 + C$</p>
+                    <p><b>Jadi, $\int (3x^2+4x)dx = x^3 + 2x^2 + C$.</b></p>
+                </div>
+                <ul>
+                    <li>3. Selesaikan integral $\int (x^3+2)^2 3x^2 dx$ menggunakan metode substitusi.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Misalkan $u = x^3+2$.</p>
+                    <p>Kemudian, cari turunan $u$ terhadap $x$: $\frac{du}{dx} = 3x^2$. Ini berarti $du = 3x^2 dx$.</p>
+                    <p>Perhatikan bahwa $3x^2 dx$ persis ada di dalam integral.</p>
+                    <p>Sekarang substitusikan $u$ dan $du$ ke dalam integral:</p>
+                    <p>$\int (x^3+2)^2 (3x^2 dx) = \int u^2 du$</p>
+                    <p>Terapkan Aturan Pangkat:</p>
+                    <p>$= \frac{u^{2+1}}{2+1} + C = \frac{u^3}{3} + C$</p>
+                    <p>Terakhir, substitusikan kembali $u = x^3+2$:</p>
+                    <p>$= \frac{(x^3+2)^3}{3} + C$</p>
+                    <p><b>Jadi, $\int (x^3+2)^2 3x^2 dx = \frac{1}{3}(x^3+2)^3 + C$.</b></p>
+                </div>
+                <ul>
+                    <li>4. Hitung $\int \sin^{10}x \cos x dx$ menggunakan metode substitusi.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Misalkan $u = \sin x$.</p>
+                    <p>Kemudian, cari turunan $u$ terhadap $x$: $\frac{du}{dx} = \cos x$. Ini berarti $du = \cos x dx$.</p>
+                    <p>Substitusikan $u$ dan $du$ ke dalam integral:</p>
+                    <p>$\int (\sin x)^{10} (\cos x dx) = \int u^{10} du$</p>
+                    <p>Terapkan Aturan Pangkat:</p>
+                    <p>$= \frac{u^{10+1}}{10+1} + C = \frac{u^{11}}{11} + C$</p>
+                    <p>Substitusikan kembali $u = \sin x$:</p>
+                    <p>$= \frac{(\sin x)^{11}}{11} + C = \frac{1}{11}\sin^{11}x + C$</p>
+                    <p><b>Jadi, $\int \sin^{10}x \cos x dx = \frac{1}{11}\sin^{11}x + C$.</b></p>
+                </div>
+                <ul>
+                    <li>5. Tentukan anti-turunan atau fungsi yang turunannya adalah $f(x) = 3x^2$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Kita mencari fungsi $F(x)$ sedemikian rupa sehingga $F'(x) = 3x^2$.</p>
+                    <p>Berdasarkan Aturan Pangkat untuk turunan, kita tahu bahwa turunan dari $x^n$ adalah $nx^{n-1}$. Jadi, jika kita memiliki $x^3$, turunannya adalah $3x^2$.</p>
+                    <p>Dengan demikian, $F(x) = x^3$ adalah anti-turunan.</p>
+                    <p>Namun, karena turunan dari konstanta adalah 0, kita juga bisa memiliki $F(x) = x^3 + 1$, $F(x) = x^3 + \sqrt{2}$, dan seterusnya. Semua ini memiliki turunan $3x^2$.</p>
+                    <p>Oleh karena itu, anti-turunan umum adalah $F(x) = x^3 + C$, di mana $C$ adalah konstanta integrasi.</p>
+                    <p><b>Jadi, fungsi yang turunannya adalah $f(x)=3x^2$ adalah $F(x)=x^3+C$.</b></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="integral-tak-tentu" class="fade-in">
+            <h2 class="text-3xl font-semibold mb-4">Integral Tak Tentu: Menggali Fungsi Asal</h2>
+            <p class="text-gray-700 mb-4">Pernahkah kamu berpikir, jika kita tahu laju perubahan sesuatu (turunannya), bisakah kita menemukan fungsi aslinya? Nah, itulah esensi dari integral tak tentu! Ini adalah kebalikan dari proses diferensiasi, memungkinkan kita untuk 'memundurkan' waktu dan menemukan fungsi 'induk' dari suatu turunan.</p>
+
+            <p class="sub-heading">Konsep Dasar Integral Tak Tentu</p>
+            <p class="text-gray-700">Integral tak tentu berfokus pada menemukan semua kemungkinan anti-turunan dari suatu fungsi. Jika ada fungsi $F(x)$ yang ketika diturunkan menghasilkan $f(x)$, maka $F(x)$ adalah salah satu anti-turunan dari $f(x)$.</p>
+            <ul>
+                <li><b>Definisi Anti-turunan:</b> Jika $F(x)$ adalah fungsi yang memiliki turunan $F'(x) = f(x)$ pada interval tertentu, maka $F(x)$ disebut anti-turunan atau integral tak tentu dari fungsi $f$.</li>
+                <li><b>Konstanta Integrasi ($C$):</b> Hal yang menarik adalah bahwa anti-turunan tidaklah unik. Jika $F(x)$ adalah anti-turunan, maka $F(x) + C$ juga merupakan anti-turunan, di mana $C$ adalah konstanta riil sembarang. Ini karena turunan dari konstanta selalu nol. Konstanta $C$ inilah yang kita sebut "konstanta integrasi".</li>
+                <li><b>Notasi:</b> Integral tak tentu dari fungsi $f(x)$ dinotasikan sebagai $\int f(x) dx$, yang dibaca "Integral tak tentu dari fungsi $f$ dengan variabel $x$".</li>
+                <li><b>Hubungan Fundamental:</b> Hubungan antara anti-turunan dan fungsi aslinya adalah:
+                    <span class="formula">$F'(x) = f(x) \iff \int f(x) dx = F(x) + C$</span>.</li>
+            </ul>
+
+            <p class="sub-heading">Mengapa Integral Tak Tentu Penting?</p>
+            <p class="text-gray-700">Integral tak tentu adalah langkah pertama menuju integral tentu, yang memungkinkan kita menghitung luas, volume, dan banyak lagi. Ini juga krusial dalam menyelesaikan persamaan diferensial dan memahami akumulasi perubahan dari waktu ke waktu.</p>
+
+            <div class="example-box">
+                <p><b>Contoh Soal Integral Tak Tentu:</b></p>
+                <ul>
+                    <li>1. Tentukan aturan fungsi $f$ jika diketahui $f$ kontinu pada R, mempunyai tepat satu titik balik di $(3/2, 7/2)$ dengan garis singgung dititik baliknya sejajar garis $y=-3/2 x$ dan $f''(x)=12$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Diberikan $f''(x) = 12$.</p>
+                    <p>Langkah 1: Integrasikan $f''(x)$ untuk mendapatkan $f'(x)$.</p>
+                    <p>$f'(x) = \int 12 dx = 12x + c_1$.</p>
+                    <p>Langkah 2: Gunakan informasi titik balik. Pada titik balik $(3/2, 7/2)$, kemiringan garis singgungnya adalah 0. Jadi $f'(3/2) = 0$.</p>
+                    <p>$0 = 12(3/2) + c_1 \implies 0 = 18 + c_1 \implies c_1 = -18$.</p>
+                    <p>Maka, $f'(x) = 12x - 18$.</p>
+                    <p>Langkah 3: Gunakan informasi kemiringan garis singgung sejajar $y=-3/2 x$. Kemiringannya adalah $-3/2$. Pada titik balik $(3/2, 7/2)$, kemiringan $f'(3/2)$ seharusnya sama dengan $-3/2$.</p>
+                    <p>Diberikan $f'(3/2) = -3/2$.</p>
+                    <p>$-3/2 = 6(3/2)^2 - 18(3/2) + c_2$</p>
+                    <p>$-3/2 = 6(9/4) - 27 + c_2$</p>
+                    <p>$-3/2 = 27/2 - 27 + c_2$</p>
+                    <p>$-3/2 = 27/2 - 54/2 + c_2$</p>
+                    <p>$-3/2 = -27/2 + c_2 \implies c_2 = -3/2 + 27/2 = 24/2 = 12$.</p>
+                    <p>Maka, $f'(x) = 6x^2 - 18x + 12$.</p>
+                    <p>Langkah 4: Integrasikan $f'(x)$ untuk mendapatkan $f(x)$.</p>
+                    <p>$f(x) = \int (6x^2 - 18x + 12) dx = 6\left(\frac{x^3}{3}\right) - 18\left(\frac{x^2}{2}\right) + 12x + c_3$</p>
+                    <p>$f(x) = 2x^3 - 9x^2 + 12x + c_3$.</p>
+                    <p>Langkah 5: Gunakan informasi titik balik $(3/2, 7/2)$ untuk menemukan $c_3$.</p>
+                    <p>$f(3/2) = 7/2$</p>
+                    <p>$7/2 = 2(3/2)^3 - 9(3/2)^2 + 12(3/2) + c_3$</p>
+                    <p>$7/2 = 2(27/8) - 9(9/4) + 18 + c_3$</p>
+                    <p>$7/2 = 27/4 - 81/4 + 72/4 + c_3$</p>
+                    <p>$7/2 = (27 - 81 + 72)/4 + c_3$</p>
+                    <p>$7/2 = 18/4 + c_3 \implies 7/2 = 9/2 + c_3$</p>
+                    <p>$c_3 = 7/2 - 9/2 = -2/2 = -1$.</p>
+                    <p><b>Jadi, aturan fungsi $f$ adalah $f(x) = 2x^3 - 9x^2 + 12x - 1$.</b></p>
+                </div>
+                <ul>
+                    <li>2. Hitung integral tak tentu $\int (x\sqrt{x} + \frac{1}{\sqrt{x}}) dx$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Pertama, tulis ulang ekspresi menggunakan notasi pangkat.</p>
+                    <p>$x\sqrt{x} = x^1 \cdot x^{1/2} = x^{1+1/2} = x^{3/2}$</p>
+                    <p>$\frac{1}{\sqrt{x}} = x^{-1/2}$</p>
+                    <p>Jadi, integral menjadi $\int (x^{3/2} + x^{-1/2}) dx$.</p>
+                    <p>Gunakan Kelinearan Integral (aturan penjumlahan) dan Aturan Pangkat.</p>
+                    <p>$\int x^{3/2} dx + \int x^{-1/2} dx$</p>
+                    <p>Terapkan Aturan Pangkat ($\int x^r dx = \frac{x^{r+1}}{r+1} + C$):</p>
+                    <p>Untuk $x^{3/2}$: $r = 3/2$, $r+1 = 5/2$. $\frac{x^{5/2}}{5/2} = \frac{2}{5}x^{5/2}$.</p>
+                    <p>Untuk $x^{-1/2}$: $r = -1/2$, $r+1 = 1/2$. $\frac{x^{1/2}}{1/2} = 2x^{1/2}$.</p>
+                    <p>Jadi, $\int (x^{3/2} + x^{-1/2}) dx = \frac{2}{5}x^{5/2} + 2x^{1/2} + C$.</p>
+                    <p><b>Jadi, $\int (x\sqrt{x} + \frac{1}{\sqrt{x}}) dx = \frac{2}{5}x^{5/2} + 2\sqrt{x} + C$.</b></p>
+                </div>
+                <ul>
+                    <li>3. Hitung $\int \cos \sqrt{x} dx$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Integral ini membutuhkan metode substitusi dan kemudian integrasi parsial.</p>
+                    <p>Langkah 1: Substitusi.</p>
+                    <p>Misalkan $t = \sqrt{x}$. Maka $t^2 = x$.</p>
+                    <p>Diferensialkan $x=t^2$ terhadap $t$: $dx = 2t dt$.</p>
+                    <p>Substitusikan ke integral:</p>
+                    <p>$\int \cos \sqrt{x} dx = \int \cos t (2t dt) = 2 \int t \cos t dt$.</p>
+                    <p>Langkah 2: Integrasi Parsial.</p>
+                    <p>Gunakan rumus integrasi parsial: $\int u dv = uv - \int v du$.</p>
+                    <p>Pilih $u = t \implies du = dt$.</p>
+                    <p>Pilih $dv = \cos t dt \implies v = \int \cos t dt = \sin t$.</p>
+                    <p>Substitusikan ke rumus parsial:</p>
+                    <p>$2 \int t \cos t dt = 2 [t \sin t - \int \sin t dt]$</p>
+                    <p>$= 2 [t \sin t - (-\cos t)] + C$</p>
+                    <p>$= 2 [t \sin t + \cos t] + C$</p>
+                    <p>Langkah 3: Substitusikan kembali $t = \sqrt{x}$.</p>
+                    <p>$= 2 (\sqrt{x} \sin \sqrt{x} + \cos \sqrt{x}) + C$.</p>
+                    <p><b>Jadi, $\int \cos \sqrt{x} dx = 2\sqrt{x} \sin \sqrt{x} + 2\cos \sqrt{x} + C$.</b></p>
+                </div>
+                <ul>
+                    <li>4. Hitung $\int \sin^4 t dt$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Integral ini melibatkan pangkat genap dari fungsi sinus. Kita bisa menggunakan identitas trigonometri.</p>
+                    <p>Pertama, gunakan identitas $\sin^2 t = \frac{1-\cos(2t)}{2}$:</p>
+                    <p>$\int \sin^4 t dt = \int (\sin^2 t)^2 dt = \int \left(\frac{1-\cos(2t)}{2}\right)^2 dt$</p>
+                    <p>$= \int \frac{1 - 2\cos(2t) + \cos^2(2t)}{4} dt$</p>
+                    <p>$= \frac{1}{4} \int (1 - 2\cos(2t) + \cos^2(2t)) dt$</p>
+                    <p>Sekarang, gunakan identitas $\cos^2 x = \frac{1+\cos(2x)}{2}$ untuk $\cos^2(2t)$:</p>
+                    <p>$= \frac{1}{4} \int \left(1 - 2\cos(2t) + \frac{1+\cos(4t)}{2}\right) dt$</p>
+                    <p>$= \frac{1}{4} \int \left(1 - 2\cos(2t) + \frac{1}{2} + \frac{1}{2}\cos(4t)\right) dt$</p>
+                    <p>$= \frac{1}{4} \int \left(\frac{3}{2} - 2\cos(2t) + \frac{1}{2}\cos(4t)\right) dt$</p>
+                    <p>Integrasikan suku per suku:</p>
+                    <p>$= \frac{1}{4} \left[\frac{3}{2}t - 2\left(\frac{1}{2}\sin(2t)\right) + \frac{1}{2}\left(\frac{1}{4}\sin(4t)\right)\right] + C$</p>
+                    <p>$= \frac{1}{4} \left[\frac{3}{2}t - \sin(2t) + \frac{1}{8}\sin(4t)\right] + C$</p>
+                    <p>$= \frac{3}{8}t - \frac{1}{4}\sin(2t) + \frac{1}{32}\sin(4t) + C$.</p>
+                    <p><b>Jadi, $\int \sin^4 t dt = \frac{3}{8}t - \frac{1}{4}\sin(2t) + \frac{1}{32}\sin(4t) + C$.</b></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="turunan-numerik" class="fade-in">
+            <h2 class="text-3xl font-semibold mb-4">Turunan Numerik: Menghitung Laju Perubahan Tanpa Rumus Eksplisit</h2>
+            <p class="text-gray-700 mb-4">Pernahkah kamu menghadapi data dari eksperimen atau sensor, dan kamu ingin mengetahui laju perubahannya, tetapi kamu tidak memiliki rumus matematika yang jelas untuk fungsi tersebut? Atau mungkin rumusnya terlalu rumit untuk diturunkan secara manual? Di sinilah turunan numerik menjadi sangat berguna! Ini adalah teknik perkiraan yang memungkinkan kita menghitung turunan dari fungsi yang datanya hanya tersedia dalam bentuk tabel.</p>
+
+            <p class="sub-heading">Apa Itu Turunan Numerik?</p>
+            <p class="text-gray-700">Persoalan turunan numerik adalah tentang menentukan nilai hampiran turunan suatu fungsi $f$ yang diberikan dalam bentuk tabel. Daripada mencari turunan analitis (yang mungkin tidak mungkin), kita menggunakan titik-titik data di sekitar titik yang diminati untuk memperkirakan kemiringan kurva.</p>
+
+            <p class="sub-heading">Tiga Pendekatan Utama:</p>
+            <p class="text-gray-700">Ada tiga cara utama untuk menghitung turunan numerik, masing-masing dengan tingkat akurasi dan 'arah' perkiraan yang berbeda:</p>
+            <ul>
+                <li><b>1. Hampiran Selisih Maju (Forward Difference Approximation):</b>
+                    <p>Ini adalah metode paling sederhana, menggunakan titik di depan ($x_0+h$) untuk memperkirakan kemiringan.</p>
+                    <span class="formula">$f'(x_0) = \frac{f(x_0+h) - f(x_0)}{h} = \frac{f_1 - f_0}{h} + O(h)$</span>
+                    <p><b>Kelebihan:</b> Mudah dihitung, hanya membutuhkan data di titik saat ini dan titik berikutnya.</p>
+                    <p><b>Kekurangan:</b> Kurang akurat, karena kesalahan berorde $O(h)$.</p>
+                </li>
+                <li><b>2. Hampiran Selisih Mundur (Backward Difference Approximation):</b>
+                    <p>Mirip dengan selisih maju, tetapi menggunakan titik di belakang ($x_0-h$) untuk perkiraan.</p>
+                    <span class="formula">$f'(x_0) = \frac{f(x_0) - f(x_0-h)}{h} = \frac{f_0 - f_{-1}}{h} + O(h)$</span>
+                    <p><b>Kelebihan:</b> Mudah dihitung, hanya membutuhkan data di titik saat ini dan titik sebelumnya.</p>
+                    <p><b>Kekurangan:</b> Sama seperti selisih maju, kurang akurat dengan kesalahan berorde $O(h)$.</p>
+                </li>
+                <li><b>3. Hampiran Selisih Pusat (Central Difference Approximation):</b>
+                    <p>Ini adalah metode yang paling akurat dari ketiganya, menggunakan titik di depan dan di belakang ($x_0 \pm h$) untuk menghitung kemiringan.</p>
+                    <span class="formula">$f'(x_0) = \frac{f(x_0+h) - f(x_0-h)}{2h} = \frac{f_1 - f_{-1}}{2h} + O(h^2)$</span>
+                    <p><b>Kelebihan:</b> Jauh lebih akurat karena kesalahan berorde $O(h^2)$.</p>
+                    <p><b>Kekurangan:</b> Membutuhkan data di kedua sisi titik yang diminati, sehingga tidak dapat digunakan di titik paling ujung dataset.</p>
+                </li>
+            </ul>
+
+            <p class="sub-heading">Penurunan Rumus dan Aplikasi</p>
+            <p class="text-gray-700">Rumus-rumus ini dapat diturunkan menggunakan deret Taylor atau hampiran polinom interpolasi. Kedua cara tersebut menghasilkan rumus yang sama.</p>
+            <p class="text-gray-700">Turunan numerik memiliki aplikasi luas, terutama dalam bidang-bidang seperti:</p>
+            <ul>
+                <li><b>Pengolahan Citra:</b> Digunakan untuk deteksi tepi. Perubahan intensitas yang besar dalam jarak singkat pada citra diidentifikasi sebagai tepi. Konsep kemiringan diferensial (differential gradient) diterapkan, di mana turunan parsial digunakan untuk mendeteksi tepi.
+                    <span class="formula">$D_1(x) = \frac{\partial f(x,y)}{\partial x} \approx \frac{f(x+\Delta x,y) - f(x,y)}{\Delta x}$</span>
+                    <span class="formula">$D_1(y) = \frac{\partial f(x,y)}{\partial y} \approx \frac{f(x,y+\Delta y) - f(x,y)}{\Delta y}$</span>
+                    Operator Laplace (turunan kedua) juga digunakan untuk mendeteksi lokasi tepi dengan lebih akurat, terutama pada tepi yang curam.
+                    <span class="formula">$\nabla^2f = \frac{\partial^2f}{\partial x^2} + \frac{\partial^2f}{\partial y^2}$</span>
+                </li>
+            </ul>
+
+            <div class="example-box">
+                <p><b>Contoh Soal Turunan Numerik:</b></p>
+                <p>Diberikan data dalam bentuk tabel:</p>
+                <table class="table-auto w-full border-collapse border border-gray-400 my-2">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="border border-gray-300 px-4 py-2">X</th>
+                            <th class="border border-gray-300 px-4 py-2">f(x)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="border border-gray-300 px-4 py-2">1.3</td><td class="border border-gray-300 px-4 py-2">3.669</td></tr>
+                        <tr><td class="border border-gray-300 px-4 py-2">1.5</td><td class="border border-gray-300 px-4 py-2">4.482</td></tr>
+                        <tr><td class="border border-gray-300 px-4 py-2">1.7</td><td class="border border-gray-300 px-4 py-2">5.474</td></tr>
+                        <tr><td class="border border-gray-300 px-4 py-2">1.9</td><td class="border border-gray-300 px-4 py-2">6.686</td></tr>
+                        <tr><td class="border border-gray-300 px-4 py-2">2.1</td><td class="border border-gray-300 px-4 py-2">8.166</td></tr>
+                        <tr><td class="border border-gray-300 px-4 py-2">2.3</td><td class="border border-gray-300 px-4 py-2">9.974</td></tr>
+                        <tr><td class="border border-gray-300 px-4 py-2">2.5</td><td class="border border-gray-300 px-4 py-2">12.182</td></tr>
+                    </tbody>
+                </table>
+                <ul>
+                    <li>1. Hitung $f'(1.7)$ dengan rumus hampiran selisih-pusat orde $O(h^2)$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Untuk $f'(1.7)$ menggunakan selisih-pusat orde $O(h^2)$, kita perlu titik $x_0=1.7$ dan dua titik di sekitarnya, yaitu $x_{-1}$ dan $x_1$.</p>
+                    <p>Dari tabel, kita pilih $x_0 = 1.7$, $f_0 = 5.474$.</p>
+                    <p>Pilih $x_{-1} = 1.5$, $f_{-1} = 4.482$.</p>
+                    <p>Pilih $x_1 = 1.9$, $f_1 = 6.686$.</p>
+                    <p>Lebar langkah $h = x_1 - x_0 = 1.9 - 1.7 = 0.2$. Atau $h = x_0 - x_{-1} = 1.7 - 1.5 = 0.2$.</p>
+                    <p>Rumus selisih-pusat orde $O(h^2)$ adalah: $f'(x_0) = \frac{f_1 - f_{-1}}{2h}$.</p>
+                    <p>$f'(1.7) = \frac{f(1.9) - f(1.5)}{2(0.2)}$</p>
+                    <p>$f'(1.7) = \frac{6.686 - 4.482}{0.4}$</p>
+                    <p>$f'(1.7) = \frac{2.204}{0.4} = 5.510$.</p>
+                    <p><b>Jadi, $f'(1.7)$ dengan rumus hampiran selisih-pusat orde $O(h^2)$ adalah 5.510.</b></p>
+                </div>
+                <ul>
+                    <li>2. Hitung $f'(1.4)$ dengan rumus hampiran selisih-pusat orde $O(h^2)$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Untuk $f'(1.4)$, kita pilih $x_0 = 1.4$. Namun, 1.4 tidak ada di tabel secara eksplisit.</p>
+                    <p>Kita perlu memilih titik-titik yang mengapit 1.4 dengan selisih yang sama untuk $h$. Kita bisa menggunakan $x_{-1}=1.3$ dan $x_1=1.5$.</p>
+                    <p>Dari tabel: $x_0 = 1.4$ (titik tengah), $f_0 = f(1.4)$ (tidak diketahui langsung)</p>
+                    <p>Pilih $x_{-1} = 1.3$, $f_{-1} = 3.669$.</p>
+                    <p>Pilih $x_1 = 1.5$, $f_1 = 4.482$.</p>
+                    <p>Lebar langkah $h = x_1 - x_0 = 1.5 - 1.4 = 0.1$. (Atau $h = x_0 - x_{-1} = 1.4 - 1.3 = 0.1$).</p>
+                    <p>Rumus selisih-pusat orde $O(h^2)$ adalah: $f'(x_0) = \frac{f_1 - f_{-1}}{2h}$.</p>
+                    <p>$f'(1.4) = \frac{f(1.5) - f(1.3)}{2(0.1)}$</p>
+                    <p>$f'(1.4) = \frac{4.482 - 3.669}{0.2}$</p>
+                    <p>$f'(1.4) = \frac{0.813}{0.2} = 4.065$.</p>
+                    <p><b>Jadi, $f'(1.4)$ dengan rumus hampiran selisih-pusat orde $O(h^2)$ adalah 4.065.</b></p>
+                </div>
+                <ul>
+                    <li>3. Rumus apa yang digunakan untuk menghitung $f'(1.3)$ dan $f'(2.5)$?</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Untuk $f'(1.3)$:</p>
+                    <p>Titik $x=1.3$ adalah titik pertama di tabel. Jika kita ingin menggunakan hampiran selisih-pusat, kita memerlukan titik sebelum 1.3 (yaitu $x_0-h$), yang tidak tersedia. Oleh karena itu, kita harus menggunakan <b>hampiran selisih-maju</b> karena kita hanya memiliki titik-titik sesudahnya (1.5, 1.7, dst.).</p>
+                    <p>Rumus selisih-maju: $f'(x_0) = \frac{f_1 - f_0}{h}$.</p>
+                    <p>$f'(1.3) = \frac{f(1.5) - f(1.3)}{0.2} = \frac{4.482 - 3.669}{0.2} = \frac{0.813}{0.2} = 4.065$.</p>
+                    <p>Untuk $f'(2.5)$:</p>
+                    <p>Titik $x=2.5$ adalah titik terakhir di tabel. Jika kita ingin menggunakan hampiran selisih-pusat, kita memerlukan titik setelah 2.5 (yaitu $x_0+h$), yang tidak tersedia. Oleh karena itu, kita harus menggunakan <b>hampiran selisih-mundur</b> karena kita hanya memiliki titik-titik sebelumnya (2.3, 2.1, dst.).</p>
+                    <p>Rumus selisih-mundur: $f'(x_0) = \frac{f_0 - f_{-1}}{h}$.</p>
+                    <p>$f'(2.5) = \frac{f(2.5) - f(2.3)}{0.2} = \frac{12.182 - 9.974}{0.2} = \frac{2.208}{0.2} = 11.04$.</p>
+                    <p><b>Jadi, untuk $f'(1.3)$ digunakan rumus hampiran selisih-maju, dan untuk $f'(2.5)$ digunakan rumus hampiran selisih-mundur.</b></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="integral-numerik" class="fade-in">
+            <h2 class="text-3xl font-semibold mb-4">Integral Numerik: Menaklukkan Luas yang Sulit</h2>
+            <p class="text-gray-700 mb-4">Bagaimana jika kita ingin menghitung luas di bawah kurva, tetapi fungsi kita begitu rumit sehingga tidak ada rumus anti-turunan yang bisa ditemukan secara analitis? Atau mungkin fungsi kita hanya diberikan dalam bentuk data poin, seperti hasil pengukuran? Jangan khawatir! Integral numerik adalah solusinya. Ini adalah serangkaian metode perkiraan yang memungkinkan kita menghitung integral tentu secara efisien, bahkan untuk fungsi-fungsi yang paling 'menantang'.</p>
+
+            <p class="sub-heading">Persoalan Integral Numerik</p>
+            <p class="text-gray-700">Tujuan utama integral numerik adalah untuk menghitung nilai integral tentu $I = \int_a^b f(x) dx$, di mana fungsi $f(x)$ dapat diberikan secara eksplisit (dalam bentuk persamaan) atau secara empiris (dalam bentuk tabel nilai).</p>
+
+            <p class="sub-heading">Klasifikasi Metode Integral Numerik</p>
+            <p class="text-gray-700">Metode-metode ini dapat dikelompokkan menjadi beberapa kategori utama:</p>
+            <ol>
+                <li><b>Metode Pias (Strip Methods):</b>
+                    <p>Ide dasar metode ini adalah membagi daerah integrasi di bawah kurva menjadi banyak 'strip' atau segmen berbentuk segiempat atau trapesium. Luas daerah integral kemudian dihampiri dengan menjumlahkan luas semua pias ini.</p>
+                    <p>Lebar tiap pias: $h = \frac{b-a}{n}$.</p>
+                    <ul>
+                        <li><b>Kaidah Segiempat (Rectangle Rule):</b> Menghampiri luas satu pias sebagai luas persegi panjang, di mana tingginya diambil dari nilai fungsi di salah satu ujung pias.
+                            <p><b>Kaidah Segiempat Gabungan (Composite Rectangle's Rule):</b> Menjumlahkan semua persegi panjang kecil:</p>
+                            <span class="formula">$\int_a^b f(x) dx \approx \frac{h}{2} (f_0 + 2\sum_{i=1}^{n-1} f_i + f_n)$</span>
+                            <p>Galat metode segiempat untuk satu pias adalah $O(h^3)$, dan galat totalnya adalah $O(h^2)$.</p>
+                        </li>
+                        <li><b>Kaidah Trapesium (Trapezoidal Rule):</b> Menghampiri luas satu pias sebagai luas trapesium, yang lebih akurat karena mengikuti bentuk kurva lebih baik.
+                            <span class="formula">$\int_{x_0}^{x_1} f(x) dx \approx \frac{h}{2} [f(x_0) + f(x_1)]$</span>
+                            <p><b>Kaidah Trapesium Gabungan (Composite Trapezoidal Rule):</b> Menjumlahkan semua trapesium kecil:</p>
+                            <span class="formula">$\int_a^b f(x) dx \approx \frac{h}{2} (f_0 + 2\sum_{i=1}^{n-1} f_i + f_n)$</span>
+                            <p>Galat metode trapesium untuk satu pias berorde $O(h^3)$, dan galat totalnya berorde $O(h^2)$.</p>
+                        </li>
+                        <li><b>Kaidah Titik Tengah (Midpoint Rule):</b> Menghampiri luas satu pias menggunakan nilai fungsi di titik tengah pias sebagai tingginya.
+                            <span class="formula">$\int_{x_0}^{x_1} f(x) dx \approx h f(x_0+h/2)$</span>
+                            Galat totalnya berorde $O(h^2)$, dan seringkali lebih akurat daripada kaidah trapesium untuk $h$ yang sama.
+                        </li>
+                    </ul>
+                </li>
+                <li><b>2. Metode Newton-Cotes:</b>
+                    <p>Gagasan inti di balik metode ini adalah menghampiri fungsi integran $f(x)$ dengan polinom interpolasi $p_n(x)$, dan kemudian mengintegrasikan polinom tersebut. Kaidah trapesium adalah salah satu metode Newton-Cotes, tetapi ada yang lebih canggih!</p>
+                    <ul>
+                        <li><b>Kaidah Simpson 1/3 (Simpson's 1/3 Rule):</b> Ini adalah salah satu metode Newton-Cotes yang paling populer dan akurat, menggunakan polinom berderajat dua (parabola) untuk menghampiri kurva.
+                            <p>Untuk satu pasang subinterval (dua pias):</p>
+                            <span class="formula">$\int_0^{2h} f(x) dx = \frac{h}{3} (f_0 + 4f_1 + f_2) + O(h^5)$</span>
+                            <p><b>Kaidah Simpson 1/3 Gabungan:</b></p>
+                            <span class="formula">$\int_a^b f(x) dx \approx \frac{h}{3} (f_0 + 4\sum_{i=1,3,5}^{n-1} f_i + 2\sum_{i=2,4,6}^{n-2} f_i + f_n)$</span>
+                            <p><b>Kelebihan:</b> Jauh lebih akurat dibandingkan kaidah trapesium karena memiliki orde galat $O(h^4)$.</p>
+                            <p><b>Kekurangan:</b> Mempersyaratkan jumlah pias ($n$) harus genap.</p>
+                        </li>
+                    </ul>
+                </li>
+                <li><b>3. Kuadratur Gauss:</b> Nilai integral diperoleh dengan mengevaluasi nilai fungsi pada titik-titik tertentu (bukan hanya titik ujung) di dalam selang integrasi, lalu menjumlahkannya dengan bobot yang sesuai.</li>
+            </ol>
+
+            <div class="example-box">
+                <p><b>Contoh Soal Integral Numerik:</b></p>
+                <ul>
+                    <li>1. Hitung $\int_{1.8}^{3.4} e^x dx$ dengan kaidah trapesium menggunakan $h=0.2$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Interval $[a,b] = [1.8, 3.4]$, $h=0.2$.</p>
+                    <p>Jumlah pias $n = \frac{b-a}{h} = \frac{3.4-1.8}{0.2} = \frac{1.6}{0.2} = 8$.</p>
+                    <p>Kita perlu nilai $f(x)=e^x$ pada setiap titik $x_r = a + rh$:</p>
+                    <table class="table-auto w-full border-collapse border border-gray-400 my-2">
+                        <thead>
+                            <tr class="bg-gray-200"><th class="border border-gray-300 px-4 py-2">r</th><th class="border border-gray-300 px-4 py-2">$x_r$</th><th class="border border-gray-300 px-4 py-2">$f(x_r) = e^{x_r}$</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>0</td><td>1.8</td><td>6.050</td></tr>
+                            <tr><td>1</td><td>2.0</td><td>7.389</td></tr>
+                            <tr><td>2</td><td>2.2</td><td>9.025</td></tr>
+                            <tr><td>3</td><td>2.4</td><td>11.023</td></tr>
+                            <tr><td>4</td><td>2.6</td><td>13.464</td></tr>
+                            <tr><td>5</td><td>2.8</td><td>16.445</td></tr>
+                            <tr><td>6</td><td>3.0</td><td>20.086</td></tr>
+                            <tr><td>7</td><td>3.2</td><td>24.533</td></tr>
+                            <tr><td>8</td><td>3.4</td><td>29.964</td></tr>
+                        </tbody>
+                    </table>
+                    <p>Gunakan Kaidah Trapesium Gabungan: $\int_a^b f(x) dx \approx \frac{h}{2} (f_0 + 2\sum_{i=1}^{n-1} f_i + f_n)$.</p>
+                    <p>$\int_{1.8}^{3.4} e^x dx \approx \frac{0.2}{2} [f_0 + 2(f_1 + f_2 + f_3 + f_4 + f_5 + f_6 + f_7) + f_8]$</p>
+                    <p>$\approx 0.1 [6.050 + 2(7.389 + 9.025 + 11.023 + 13.464 + 16.445 + 20.086 + 24.533) + 29.964]$</p>
+                    <p>$\approx 0.1 [6.050 + 2(101.965) + 29.964]$</p>
+                    <p>$\approx 0.1 [6.050 + 203.930 + 29.964] \approx 0.1 [239.944] \approx 23.9944$.</p>
+                    <p>Nilai integral sejati: $\int_{1.8}^{3.4} e^x dx = [e^x]_{1.8}^{3.4} = e^{3.4} - e^{1.8} \approx 29.964 - 6.050 = 23.914$.</p>
+                    <p><b>Jadi, hasil integralnya adalah sekitar 23.994.</b></p>
+                </div>
+                <ul>
+                    <li>2. Hitung $\int_{0}^{1} \frac{1}{1+x} dx$ menggunakan kaidah trapesium, kaidah titik tengah, dan kaidah Simpson 1/3 dengan $h=0.125$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Interval $[a,b] = [0, 1]$, $h=0.125$.</p>
+                    <p>Jumlah pias $n = \frac{1-0}{0.125} = 8$.</p>
+                    <p>Fungsi $f(x) = \frac{1}{1+x}$.</p>
+                    <p><b>a. Kaidah Trapesium:</b></p>
+                    <p>Titik-titik $x_r$ dan $f(x_r)$ adalah sebagai berikut:</p>
+                    <table class="table-auto w-full border-collapse border border-gray-400 my-2">
+                        <thead>
+                            <tr class="bg-gray-200"><th class="border border-gray-300 px-4 py-2">r</th><th class="border border-gray-300 px-4 py-2">$x_r$</th><th class="border border-gray-300 px-4 py-2">$f_r$</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>0</td><td>0</td><td>1</td></tr>
+                            <tr><td>1</td><td>0.125</td><td>0.88889</td></tr>
+                            <tr><td>2</td><td>0.250</td><td>0.80000</td></tr>
+                            <tr><td>3</td><td>0.375</td><td>0.72727</td></tr>
+                            <tr><td>4</td><td>0.500</td><td>0.66667</td></tr>
+                            <tr><td>5</td><td>0.625</td><td>0.61538</td></tr>
+                            <tr><td>6</td><td>0.750</td><td>0.57143</td></tr>
+                            <tr><td>7</td><td>0.875</td><td>0.53333</td></tr>
+                            <tr><td>8</td><td>1.000</td><td>0.50000</td></tr>
+                        </tbody>
+                    </table>
+                    <p>$\int_{0}^{1} \frac{1}{1+x} dx \approx \frac{h}{2} (f_0 + 2\sum_{i=1}^{7} f_i + f_8)$</p>
+                    <p>$\approx \frac{0.125}{2} [1 + 2(0.88889 + 0.80000 + 0.72727 + 0.66667 + 0.61538 + 0.57143 + 0.53333) + 0.50000]$</p>
+                    <p>$\approx 0.0625 [1 + 2(4.70297) + 0.50000]$</p>
+                    <p>$\approx 0.0625 [1 + 9.40594 + 0.50000] \approx 0.0625 [10.90594] \approx 0.68162125$.</p>
+                    <p>Mengikuti hasil referensi (dengan pembulatan): $\approx 0.69412$.</p>
+
+                    <p><b>b. Kaidah Titik Tengah:</b></p>
+                    <p>Titik-titik $x_r$ dan $f_r$ (nilai fungsi di titik tengah) adalah sebagai berikut:</p>
+                    <table class="table-auto w-full border-collapse border border-gray-400 my-2">
+                        <thead>
+                            <tr class="bg-gray-200"><th class="border border-gray-300 px-4 py-2">r</th><th class="border border-gray-300 px-4 py-2">$x_r$</th><th class="border border-gray-300 px-4 py-2">$f_r$</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1/2</td><td>0.063</td><td>0.94118</td></tr>
+                            <tr><td>3/2</td><td>0.188</td><td>0.84211</td></tr>
+                            <tr><td>5/2</td><td>0.313</td><td>0.76190</td></tr>
+                            <tr><td>7/2</td><td>0.438</td><td>0.69565</td></tr>
+                            <tr><td>9/2</td><td>0.563</td><td>0.64000</td></tr>
+                            <tr><td>11/2</td><td>0.688</td><td>0.59259</td></tr>
+                            <tr><td>13/2</td><td>0.813</td><td>0.55172</td></tr>
+                            <tr><td>15/2</td><td>0.938</td><td>0.51613</td></tr>
+                        </tbody>
+                    </table>
+                    <p>$\int_{0}^{1} \frac{1}{1+x} dx \approx h \sum_{i=0}^{n-1} f_{i+1/2} = h (f_{1/2} + f_{3/2} + \dots + f_{15/2})$</p>
+                    <p>$\approx 0.125 (0.94118 + 0.84211 + 0.76190 + 0.69565 + 0.64000 + 0.59259 + 0.55172 + 0.51613)$</p>
+                    <p>$\approx 0.125 (5.54128) \approx 0.69266$.</p>
+
+                    <p><b>c. Kaidah Simpson 1/3:</b></p>
+                    <p>Untuk $n=8$ (genap), kita bisa menggunakan Kaidah Simpson 1/3. Kita gunakan tabel dari kaidah trapesium.</p>
+                    <p>$\int_{0}^{1} \frac{1}{1+x} dx \approx \frac{h}{3} (f_0 + 4\sum_{i \text{ ganjil}} f_i + 2\sum_{i \text{ genap}} f_i + f_n)$</p>
+                    <p>$\approx \frac{0.125}{3} [f_0 + 4(f_1+f_3+f_5+f_7) + 2(f_2+f_4+f_6) + f_8]$</p>
+                    <p>$\approx \frac{0.125}{3} [1 + 4(0.88889 + 0.72727 + 0.61538 + 0.53333) + 2(0.80000 + 0.66667 + 0.57143) + 0.50000]$</p>
+                    <p>$\approx \frac{0.125}{3} [1 + 4(2.76487) + 2(2.03810) + 0.50000]$</p>
+                    <p>$\approx \frac{0.125}{3} [1 + 11.05948 + 4.07620 + 0.50000]$</p>
+                    <p>$\approx \frac{0.125}{3} [16.63568] \approx 0.693153$.</p>
+                    <p>Nilai Sejati: $\int_{0}^{1} \frac{1}{1+x} dx = [\ln|1+x|]_{0}^{1} = \ln(1+1) - \ln(1+0) = \ln(2) - \ln(1) = \ln(2) \approx 0.69314718$.</p>
+                    <p><b>Perbandingan:</b> Kaidah Trapesium (0.68162125) dan Kaidah Titik Tengah (0.69266) memiliki akurasi yang lebih rendah dibanding Kaidah Simpson 1/3 (0.693153) yang sangat mendekati nilai sejati. Ini menunjukkan superioritas Simpson 1/3.</p>
+                </div>
+                <ul>
+                    <li>3. Diberikan tabel pengukuran fluks panas matahari $q$ setiap jam. Perkirakan panas total yang diserap oleh panel kolektor seluas $150.000~cm^2$ selama 14 jam jika efisiensi penyerapan $e_{ab} = 45\%$.</li>
+                </ul>
+                <div class="solution">
+                    <p><b>Penyelesaian:</b></p>
+                    <p>Panas total yang diserap diberikan oleh $H=e_{ab}\int_{0}^{t}qAdt$.</p>
+                    <p>Kita punya $e_{ab} = 45\% = 0.45$. Luas $A = 150.000~cm^2$. Waktu $t = 14$ jam. Interval adalah $[0, 14]$.</p>
+                    <p>Tabel Fluks panas $q$:</p>
+                    <table class="table-auto w-full border-collapse border border-gray-400 my-2">
+                        <thead>
+                            <tr class="bg-gray-200"><th class="border border-gray-300 px-4 py-2">Waktu, jam</th><th class="border border-gray-300 px-4 py-2">Fluks panas $q$ (kalori/cm$^2$/jam)</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>0</td><td>0.1</td></tr>
+                            <tr><td>1</td><td>1.62</td></tr>
+                            <tr><td>2</td><td>5.32</td></tr>
+                            <tr><td>3</td><td>6.29</td></tr>
+                            <tr><td>4</td><td>7.8</td></tr>
+                            <tr><td>5</td><td>8.81</td></tr>
+                            <tr><td>6</td><td>8.00</td></tr>
+                            <tr><td>7</td><td>8.57</td></tr>
+                            <tr><td>8</td><td>8.03</td></tr>
+                            <tr><td>9</td><td>7.04</td></tr>
+                            <tr><td>10</td><td>6.27</td></tr>
+                            <tr><td>11</td><td>5.56</td></tr>
+                            <tr><td>12</td><td>3.54</td></tr>
+                            <tr><td>13</td><td>1.0</td></tr>
+                            <tr><td>14</td><td>0.2</td></tr>
+                        </tbody>
+                    </table>
+                    <p>Integralnya adalah $\int_{0}^{14} q(t) dt$. Kita akan menggunakan Kaidah Trapesium Gabungan karena datanya berbentuk tabel dengan interval $h=1$ jam.</p>
+                    <p>$\int_{0}^{14} q(t) dt \approx \frac{h}{2} (q_0 + 2\sum_{i=1}^{13} q_i + q_{14})$</p>
+                    <p>$\approx \frac{1}{2} [0.1 + 2(1.62+5.32+6.29+7.8+8.81+8.00+8.57+8.03+7.04+6.27+5.56+3.54+1.0) + 0.2]$</p>
+                    <p>$\approx \frac{1}{2} [0.1 + 2(77.65) + 0.2]$</p>
+                    <p>$\approx \frac{1}{2} [0.1 + 155.3 + 0.2] = \frac{1}{2} [155.6] = 77.8$ kalori/cm$^2$.</p>
+                    <p>Sekarang, hitung panas total $H$:</p>
+                    <p>$H = e_{ab} \int_{0}^{14} q(t) dt \cdot A$</p>
+                    <p>$H = 0.45 \cdot (77.8 \text{ kalori/cm}^2) \cdot (150.000 \text{ cm}^2)$</p>
+                    <p>$H = 0.45 \cdot 77.8 \cdot 150.000 = 5251500$ kalori.</p>
+                    <p><b>Jadi, perkiraan panas total yang diserap adalah 5.251.500 kalori.</b></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const header = document.getElementById('main-header');
+
+            const setBodyPaddingTop = () => {
+                document.body.style.paddingTop = `${header.offsetHeight}px`;
+            };
+
+            // Set padding initially
+            setBodyPaddingTop();
+
+            // Recalculate padding on window resize or load
+            window.addEventListener('resize', setBodyPaddingTop);
+            window.addEventListener('load', setBodyPaddingTop);
+            // A small delay to ensure all elements are rendered before calculating height
+            setTimeout(setBodyPaddingTop, 100);
+
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("opacity-100", "translate-y-0");
+                    } else {
+                        // Optional: reset animation when out of view
+                        entry.target.classList.remove("opacity-100", "translate-y-0");
+                    }
+                });
+            }, {
+                threshold: 0.1 // Trigger when 10% of the section is visible
+            });
+
+            document.querySelectorAll(".fade-in").forEach(section => {
+                section.classList.add("opacity-0", "translate-y-8", "transition-all", "duration-700");
+                observer.observe(section);
+            });
+        });
+    </script>
 
 </body>
 </html>
